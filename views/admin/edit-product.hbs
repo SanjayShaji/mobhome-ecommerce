@@ -1,0 +1,344 @@
+<style>
+    .g-height-50 {
+        height: 50px;
+    }
+
+    .g-width-50 {
+        width: 50px !important;
+    }
+
+    @media (min-width: 0) {
+        .g-pa-30 {
+            padding: 2.14286rem !important;
+        }
+    }
+
+    .g-bg-secondary {
+        background-color: #fafafa !important;
+    }
+
+    .u-shadow-v18 {
+        box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+    }
+
+    .g-color-gray-dark-v4 {
+        color: #777 !important;
+    }
+
+    .g-font-size-12 {
+        font-size: 0.85714rem !important;
+    }
+
+    .media-comment {
+        margin-top: 20px
+    }
+
+    .singleImageCanvasContainer {
+        overflow: hidden;
+        height: 350px;
+        width: 30%;
+        display: inline-block;
+        position: relative;
+        padding-right: 0px;
+        margin-right: 15px;
+        border: 2px solid #dfdfdf;
+        margin-bottom: 10px;
+        padding: 4px;
+        border-radius: .25rem;
+    }
+
+    .singleImageCanvasContainer .singleImageCanvasCloseBtn {
+        position: absolute;
+        right: 0;
+    }
+
+    .singleImageCanvasContainer .singleImageCanvas {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+
+
+<section class="vh-100">
+    <div class="container  h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body ">
+
+                        <h3 class="text-center">Edit Product</h3>
+
+                        <form action="/admin/edit-product/{{productData._id}}" method="POST"
+                            enctype="multipart/form-data">
+                            <div>
+                                <label class="form-label" for="name">Product Name</label>
+                                <input type="text" id="name" name="name" value="{{productData.name}}"
+                                    onkeyup="validatename()" class="form-control form-control-lg" />
+                                <span id="ErrorName"></span>
+                            </div>
+
+
+                            <div>
+                                <label class="form-label" for="brand">Brand</label>
+                                <select name="brand" class="form-control" id="brand">
+                                    <option value="{{productData.brandDetails._id}}">{{productData.brandDetails.name}}</option>
+                                    {{#each brand}}
+                                    <option value="{{this._id}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+
+
+                            <div class="mt-3">
+                                <label class="form-label" for="price">Description</label>
+                                <input type="text" id="description" name="description"
+                                    value="{{productData.description}}" onkeyup="validateDescription()"
+                                    class="form-control form-control-lg" />
+                                <span id="ErrorDescription"></span>
+
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label" for="price">Price</label>
+                                <input type="number" id="price" name="price" required value="{{productData.price}}"
+                                    class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label" for="discount">Discount</label>
+                                <input type="number" id="discount" name="discount" required value="{{productData.discount}}"
+                                    class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label" for="quantity">Count in Stock</label>
+                                <input type="number" id="stock" required name="stock" value="{{productData.stock}}" class="form-control" />
+                            </div>
+
+                            <div>
+                                <label class="form-label" for="category">Category</label>
+                                <select name="category" class="form-control" id="category">
+                                    <option value="{{productData.categoryDetails._id}}">{{productData.categoryDetails.name}}</option>
+                                    {{#each category}}
+                                    <option value="{{this._id}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            
+                            <img class="mt-3" height="100px" width="100px" id="imgView1" src="/images/product-images/{{productData.img.[0]}}" alt="">
+                            <img class="mt-3" height="100px" width="100px" id="imgView2" src="/images/product-images/{{productData.img.[1]}}" alt="">
+                            <img class="mt-3" height="100px" width="100px" id="imgView3" src="/images/product-images/{{productData.img.[2]}}" alt="">
+                            <img class="mt-3" height="100px" width="100px" id="imgView4" src="/images/product-images/{{productData.img.[3]}}" alt="">
+
+
+                            <div class="mt-3">
+                                <label class="form-label" for="image">Image</label>
+                                <input type="file" name="image" onchange="viewImage(event)" id="id_image"
+                                    class="form-control form-control-lg" data-mdb-toggle="modal" data-mdb-target="#exampleModal" multiple/>
+                                
+                                <p style="text-align: center; color:red" id="ErrorSubmit"></p>
+
+                            </div>
+
+                            <button class="mt-3 btn btn-primary btn-lg btn-block" type="submit"
+                                onclick="return validateForm()">Update</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <div class="modal-header border-bottom-0">
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row" id="test">
+                </div>
+            </div>
+            <div class="modal-header text-center">
+                <button class="btn btn-success" type="button" data-mdb-dismiss="modal" aria-label="Close">Save
+                    Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const input = document.getElementById('id_image')
+    const test = document.getElementById('test')
+    input.addEventListener('change', () => {
+        // Getting image file object from the input variable
+        const img_data = []
+        const imagebox = []
+        const crop_btn = []
+        const confirm_btn = []
+        const url = []
+        const length = input.files.length
+        for (i = 0; i < length; i++) {
+            test.innerHTML += `<div class="col-4"><div id="image-box${i}" class="image-container" style="height: 350px; width: 350px;"> </div>
+    <button class="btn btn-outline-info" id="crop-btn${i}" style="width: 100%; margin-top: 10px; display: block;" type="button">Crop</button> </div>`
+        }
+        for (i = 0; i < length; i++) {
+            img_data[i] = input.files[i]
+        }
+
+        img_data.forEach((image_data, i) => {
+            url[i] = URL.createObjectURL(image_data)
+        })
+        // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+        // The new object URL represents the specified File object or Blob object.
+        url.forEach((url, i) => {
+            document.getElementById('image-box' + i).innerHTML = `<img src="${url}" id="image${i}" style="width:100%;">`
+        })
+
+        // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+
+        // Storing that cropping view image in a variable
+
+
+        // Displaying the image box
+        for (i = 0; i < length; i++) {
+            document.getElementById('image-box' + i).style.display = 'block'
+            document.getElementById('crop-btn' + i).style.display = 'block'
+        }
+
+
+        for (i = 0; i < length; i++) {
+            cropper(img_data[i], document.getElementById('image' + i), i, document.getElementById('crop-btn' + i), document.getElementById('image-box' + i))
+        }
+
+
+
+        // Creating a croper object with the cropping view image
+        // The new Cropper() method will do all the magic and diplay the cropping view and adding cropping functionality on the website
+        // For more settings, check out their official documentation at https://github.com/fengyuanchen/cropperjs
+        let container = new DataTransfer();
+        let fileInputElement = document.getElementById('id_image');
+
+
+
+        function cropper(img_data, image, index, crop_btn, imagebox) {
+
+            const cropper = new Cropper(image, {
+                autoCropArea: 1,
+                viewMode: 1,
+                scalable: false,
+                zoomable: false,
+                movable: false,
+                minCropBoxWidth: 50,
+                minCropBoxHeight: 50,
+            })
+
+            // When crop button is clicked this event will get triggered
+            crop_btn.addEventListener('click', () => {
+                // This method coverts the selected cropped image on the cropper canvas into a blob object
+                cropper.getCroppedCanvas().toBlob((blob) => {
+
+                    // Gets the original image data
+                    // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
+                    let file = new File([blob], img_data.name, { type: "image/*", lastModified: new Date().getTime() });
+                    // Create a new container
+
+                    // Add the cropped image file to the container
+                    container.items.add(file);
+
+                    fileInputElement.files = container.files
+
+                    // Replace the original image file with the new cropped image file
+
+
+
+                    // Hide the cropper box
+                    imagebox.style.display = 'none'
+                    // Hide the crop button
+                    crop_btn.style.display = 'none'
+                });
+            });
+        }
+    });
+</script>
+
+<script>
+    
+    function viewImage(event) {
+        document.getElementById('imgView1').src = URL.createObjectURL(event.target.files[0])
+        document.getElementById('imgView2').src = URL.createObjectURL(event.target.files[1])
+        document.getElementById('imgView3').src = URL.createObjectURL(event.target.files[2])
+        document.getElementById('imgView4').src = URL.createObjectURL(event.target.files[3])
+
+
+    }
+</script>
+
+<script>
+
+    var ErrorName = document.getElementById('ErrorName');
+    var ErrorDescription = document.getElementById('ErrorDescription');
+    var ErrorSubmit = document.getElementById('ErrorSubmit');
+
+
+    function validatename() {
+
+        var vname = document.getElementById('name').value;
+        var required = 4;
+        var left = required - vname.length;
+        if (left > 0) {
+            ErrorName.innerHTML = left + 'More Charecters required';
+            ErrorName.style.color = "red";
+            return false;
+        }
+        // if(!vname.match(/^[A-Za-z]\s{1}[A-Za-z]$/)){
+        //     ErrorName.innerHTML='Write full Name';
+        //     return false;
+        // }
+        ErrorName.innerHTML = 'valid';
+        ErrorName.style.color = "green";
+        return true;
+    }
+
+    function validateDescription() {
+
+        var vdescription = document.getElementById('description').value;
+        var required = 15;
+        var left = required - vdescription.length;
+        if (left > 0) {
+            ErrorDescription.innerHTML = left + 'More Charecters required';
+            ErrorDescription.style.color = "red";
+            return false;
+        }
+        // if(!vname.match(/^[A-Za-z]\s{1}[A-Za-z]$/)){
+        //     ErrorName.innerHTML='Write full Name';
+        //     return false;
+        // }
+        ErrorDescription.innerHTML = 'valid';
+        ErrorDescription.style.color = "green";
+        return true;
+    }
+
+
+    function validateForm() {
+
+        if (!validatename() || !validateDescription() || !validatesubject()) {
+            ErrorSubmit.style.display = 'block';
+            ErrorSubmit.innerHTML = 'Please fix error';
+            setTimeout(function () { ErrorSubmit.style.display = 'none'; }, 3000);
+            return false;
+        }
+    }
+
+</script>

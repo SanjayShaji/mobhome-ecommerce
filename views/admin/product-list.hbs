@@ -1,0 +1,121 @@
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" charset="utf8"
+  src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-2 ms-auto mt-4 mb-3">
+        <a href="/admin/add-product" class="btn btn-success ">Add Product</a>
+      </div>
+
+      <table class="table mt-5" id="usersTable">
+        <thead>
+          <tr>
+            {{!-- <th scope="col">#</th> --}}
+            <th scope="col">No.</th>
+            <th scope="col">Product Name</th>
+            {{!-- <th scope="col">Category</th> --}}
+            <th scope="col">Price</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Image</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each data}}
+          {{!-- {{#if this.status}} --}}
+          <tr>
+            {{!-- <th scope="row">1</th> --}}
+            <td>{{@index}}</td>
+            <td>{{this.name}}</td>
+            {{!-- <td>{{this.category}}</td> --}}
+            <td>{{this.price}}</td>
+            <td>{{this.stock}}</td>
+            <td><img height="50px" width="50px" src="/images/product-images/{{this.img.[0]}}" alt=""></td>
+
+            <td><a style="color: white; text-decoration: none;" href="/admin/edit-product/{{this._id}}"><button
+                  class="btn btn-success">edit</button></a>
+
+              <a style="color: white; text-decoration: none;" onclick="deleteButton('{{this._id}}')"><button
+                  class="btn btn-danger" id="deleteButton">delete</button></a>
+
+              {{#if status}}
+              <a style="color: white; text-decoration: none;" href="/admin/block-product/{{this._id}}"><button
+                  class="btn btn-warning">block</button></a>
+              {{else}}
+              <a style="color: white; text-decoration: none;" href="/admin/unblock-product/{{this._id}}"><button
+                  class="btn btn-primary">unblock</button></a>
+              {{/if}}
+            </td>
+          </tr>
+          {{!-- {{/if}} --}}
+          {{/each}}
+        </tbody>
+      </table>
+
+
+</section>
+
+<script>
+  var table = document.getElementsByTagName('table')[0],
+    rows = table.getElementsByTagName('tr'),
+    text = 'textContent' in document ? 'textContent' : 'innerText';
+
+  for (var i = 1, len = rows.length; i < len; i++) {
+    rows[i].children[0][text] = i;
+  }
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('#usersTable').DataTable();
+  });
+
+
+</script>
+
+<script>
+
+  function deleteButton(id) {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      //html: `<a href="/admin/delete-product/${id}">Click here!</a>`
+      confirmButtonText: ` <a style="margin-left:5px" class="text-white" href="/admin/delete-product/${id}">Yes, Delete it!</a>`,
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    })
+    // .then((result) => {
+    //  if (result.isConfirmed) {
+    //    swalWithBootstrapButtons.fire(
+    //      'Deleted!',
+    //      'Your file has been deleted.',
+    //      'success'
+    //    )
+    //  } else if (
+    //    /* Read more about handling dismissals below */
+    //    result.dismiss === Swal.DismissReason.cancel
+    //  ) 
+    //  {
+    //    swalWithBootstrapButtons.fire(
+    //      'Cancelled',
+    //      'Your imaginary file is safe :)',
+    //      'error'
+    //    )
+    //  }
+    // })
+  }
+</script>

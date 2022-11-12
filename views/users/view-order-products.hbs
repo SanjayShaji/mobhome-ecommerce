@@ -1,0 +1,133 @@
+
+
+
+<div>
+    <div class="page-wrapper">
+
+        <main class="main">
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h3 class="page-title">ordered products</h3><span>Shop</span>
+                </div><!-- End .container -->
+            </div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">List</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="toolbox">
+                                <div class="toolbox-left">
+
+                                </div><!-- End .toolbox-left -->
+
+                                <div class="toolbox-right">
+
+
+                                </div><!-- End .toolbox-right -->
+
+                            <div class="text-center">
+                                <a href="/invoice/{{orderId}}" class="btn btn-success">Get Invoice</a>
+                            </div>
+
+                            </div><!-- End .toolbox -->
+                            <div class="products mb-3">
+
+                                {{#each orderDetails}}
+                                
+                                <div class="product product-list">
+                                    <div class="row">
+                                        <div class="col-6 col-lg-3">
+                                            <figure class="product-media">
+                                                {{!-- <span class="product-label label-new">New</span> --}}
+                                                <a href="/view-product/{{this.items._id}}">
+                                                    <img src="/images/product-images/{{this.product.img.[2]}}"
+                                                        alt="Product image" class="product-image">
+                                                </a>
+                                            </figure><!-- End .product-media -->
+                                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                                        <div class="col-6 col-lg-3 order-lg-last">
+                                            <div class="product-list-action">
+                                                <div class="product-price">
+                                                    {{this.product.price}}
+                                                </div><!-- End .product-price -->
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 20%;"></div>
+                                                        <!-- End .ratings-val -->
+                                                    </div><!-- End .ratings -->
+                                                    <span class="ratings-text">( 2 Reviews )</span>
+                                                </div><!-- End .rating-container -->
+                                                
+                                                {{!-- {{#ifEquals this.status 'cancelled' false}}
+                                                <p class="text-danger">Order cancelled</p>
+                                                {{/ifEquals}}
+                                                
+                                                {{#ifStatusEquals this.status 'placed' 'shipped' 'pending' false}}
+                                                <a href="/product-order-cancel?productId={{../this.item}}&orderId={{../this._id}}" 
+                                                    class="btn btn-danger "><span>Cancel order</span></a>
+                                                {{else}}
+                                                {{/ifStatusEquals}} --}}
+
+                                                {{!-- <a class="btn-product btn-cart" id="cart{{this.products.item}}" style="cursor: pointer;" onclick="addToCart('{{this.products.item}}')">Add to cart</a> --}}
+
+                                            </div><!-- End .product-list-action -->
+                                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                                        <div class="col-lg-6">
+                                            <div class="product-body product-action-inner">
+                                                {{!-- <a href="#" class="btn-product btn-wishlist"
+                                                    title="Add to wishlist"><span>add to wishlist</span></a> --}}
+                                                <div class="product-cat">
+                                                    {{!-- <a href="#">Women</a> --}}
+                                                </div><!-- End .product-cat -->
+                                                <h3 class="product-title"><a href="product.html">{{this.product.name}}</a>
+                                                </h3><!-- End .product-title -->
+
+                                                <div class="product-content">
+                                                    <p>{{this.product.description}} </p>
+                                                </div><!-- End .product-content -->
+                                                <div class="product-content">
+                                                    <p>Quantity: {{this.quantity}} </p>
+                                                </div><!-- End .product-content -->
+                                            {{!-- 
+                                                <div class="product-nav product-nav-thumbs">
+                                                    <a href="#" class="active">
+                                                        <img src="/images/product-images/{{this.product.img.[1]}}" alt="">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img src="/images/product-images/{{this.product.img.[2]}}" alt="">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img src="/images/product-images/{{this.product.img.[3]}}" alt="">
+                                                    </a>
+                                                </div><!-- End .product-nav --> --}}
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .col-lg-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .product -->
+                                {{/each}}
+
+                            </div><!-- End .products -->
+
+
+                        </div><!-- End .col-lg-9 -->
+
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+
+    </div><!-- End .page-wrapper -->
+
+<script src="../../helpers/hbs-helpers.js"></script>

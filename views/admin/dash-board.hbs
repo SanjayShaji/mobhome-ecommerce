@@ -1,0 +1,321 @@
+{{!--
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
+
+    .chartMenu {
+
+        height: 40px;
+        background: #1A1A1A;
+        color: rgba(255, 26, 104, 1);
+    }
+
+    .chartMenu p {
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    .chartCard {
+
+        height: calc(100vh - 40px);
+        background: rgba(255, 26, 104, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .chartBox {
+        width: 700px;
+        padding: 20px;
+        border-radius: 20px;
+        border: solid 3px rgba(255, 26, 104, 1);
+        background: white;
+    }
+</style> --}}
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="text-center">
+            <h2>Sales Graph</h2>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="chartCard">
+                    <div class="chartBox">
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a onclick="weeklyReport()" class="dropdown-item" href="#">This week</a></li>
+                                <li><a onclick="monthlyReport()" class="dropdown-item" href="#">This Month</a></li>
+                                <li><a onclick="yearlyReport()" class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+                        <canvas id="sales-chart"></canvas>
+                        
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-10">
+                                    <button class="btn btn-success" onclick="generatePDF()">Generate PDF</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <hr>
+
+    <div class="text-center m-5">
+        <h2>Payments Graph</h2>
+    </div>
+        {{!-- ///////////////next chart --}}
+        <div class="row" >
+            <div class="col" style="height: 15rem;">
+                <canvas id="payment-chart"></canvas>
+            </div>
+        </div>
+
+    </div>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://parall.ax/parallax/js/jspdf.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+            
+            <script>
+
+                function generatePDF() {
+                    const canvas = document.getElementById('sales-chart');
+
+                    const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
+
+                    let pdf = new jsPDF()
+
+                    pdf.setFontSize(20)
+
+                    pdf.addImage(canvasImage, 'JPEG', 15, 15, 185, 150)
+
+                    pdf.save("mychart.pdf")
+                }
+            </script>
+
+            <script>
+
+                var myChart;
+                var myChart2;
+                var myChart3;
+                var chart1;
+                var chart2;
+                var chart3;
+                window.onload = (event) => {
+                    weeklyReport()
+                };
+
+
+                /* <------------------------------------------------------Weekly report---------------------------------------------------------------> */
+
+
+
+                function weeklyReport() {
+
+                    chart1 = true
+
+
+                    const data = {
+                        labels: [{{#each dailySales }}'{{_id}}', {{/each}}],
+                        datasets: [{
+                            label: 'Total Sale Amount',
+                            data: [{{#each dailySales }}'{{total}}', {{/each}}],
+                backgroundColor: [
+                    'rgba(255, 26, 104, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(0, 0, 0, 0.2)'
+                ],
+                    borderColor: [
+                        'rgba(255, 26, 104, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(0, 0, 0, 1)'
+                    ],
+                        borderWidth: 1
+        }]
+      };
+
+
+                // </block:setup>
+
+                // <block:config:0>
+                const config = {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        aspectRatio: 3,
+                        responsive: true
+                    }
+                };
+
+                if (chart2) {
+                    myChart2.destroy()
+                }
+                if (chart3) {
+                    myChart3.destroy()
+                }
+
+                myChart = new Chart(document.getElementById('sales-chart'), config)
+      
+       
+       
+    }
+
+                /* <---------------------------------------------------Weekly report ends------------------------------------------------------------> */
+
+
+
+
+                /* <-----------------------------------------------------Monthly report---------------------------------------------------------------> */
+
+
+                function monthlyReport() {
+
+                    chart2 = true
+
+                    const data = {
+                        labels: [{{#each monthlySales }}'{{_id}}', {{/each}}],
+                        datasets: [{
+                            label: 'Total Sale Amount',
+                            data: [{{#each monthlySales }}'{{total}}', {{/each}}],
+                backgroundColor: [
+                    'rgb(103 119 239)',
+                    'rgb(102 187 106)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 99, 132)'
+                ]
+        }]
+      };
+                // </block:setup>
+
+                // <block:config:0>
+                const config = {
+                    type: 'polarArea',
+                    data: data,
+                    options: {
+                        aspectRatio: 3,
+                        responsive: true
+                    }
+                };
+
+                if (chart1) {
+                    myChart.destroy()
+                }
+                if (chart3) {
+                    myChart3.destroy()
+                }
+
+                myChart2 = new Chart(document.getElementById('sales-chart'), config)
+                
+     
+    }
+
+
+                /* <---------------------------------------------------Monthly report ends------------------------------------------------------------> */
+
+
+
+
+                function yearlyReport() {
+
+                    chart3 = true
+
+                    const data = {
+                        labels: [{{#each yearlySales }}'{{_id}}', {{/each}}],
+                        datasets: [{
+                            label: 'Total Sale Amount',
+                            data: [{{#each yearlySales }}'{{total}}', {{/each}}],
+                backgroundColor: [
+                    'rgb(103 119 239)',
+                    'rgb(102 187 106)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 99, 132)'
+                ]
+        }]
+      };
+                // </block:setup>
+
+                // <block:config:0>
+                const config = {
+                    type: "doughnut",
+                    data: data,
+                    options: {
+                        aspectRatio: 3,
+                        responsive: true
+                    }
+                };
+                if (chart1) {
+                    myChart.destroy()
+                }
+                if (chart2) {
+                    myChart2.destroy()
+                }
+
+                myChart3 = new Chart(document.getElementById('sales-chart'), config)
+    }
+
+            </script>
+
+{{!-- ///////////////////////////////////////////////////////////////////////// --}}
+            
+
+{{!-- /////////////////////////////////////////////////////////////////////// --}}
+
+<script>
+
+
+                    const data = {
+                        labels: ['COD', 'UPI', 'paypal'],
+                        datasets: [{
+                            label: 'Total Sale Amount',
+                            data: [{{percentageCOD}}, {{percentageUPI}}, {{percentagePaypal}}],
+                backgroundColor: [
+                    'rgb(103 119 239)',
+                    'rgb(102 187 106)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 99, 132)'
+                ]
+        }]
+      };
+                // </block:setup>
+
+                // <block:config:0>
+                const config = {
+                    type: 'doughnut',
+                    data: data,
+                    options: {
+                        aspectRatio: 3,
+                        responsive: true
+                    }
+                };
+
+
+                paymentChart = new Chart(document.getElementById('payment-chart'), config)
+                
+     
+</script>

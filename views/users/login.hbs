@@ -1,0 +1,41 @@
+
+
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 ">
+
+            <h3 class="mb-5 text-center">User Log in</h3>
+            {{#if loginErr}}
+                <p class="btn-danger">{{loginErr}}</p>
+              {{/if}}
+            <form action="/login" method="POST">
+              <div >
+                <label  for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control form-control-lg"required/>
+              </div>
+              
+              <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control form-control-lg" required />
+              </div>
+              {{#if loginPasswordErr}}
+              <p>{{loginPasswordErr}}</p>
+              {{/if}}
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+            </form>
+            <p class="text-center mt-2">OR</p>
+              <a href="/otp-login"><button  class="btn btn-success btn-lg btn-block" type="submit">Request OTP</button></a>
+            <p class="mt-4">Don't have an Account? Create one <a style="color: green; text-decoration: underline;" href="signup">sign up</a></p>
+            <hr>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{{!-- {{count 12}} --}}
+<div id="sampleh">hello</div>

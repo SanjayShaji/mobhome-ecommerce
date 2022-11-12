@@ -1,0 +1,139 @@
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" charset="utf8"
+  src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+
+
+<section>
+  <div class="container">
+    <div class="row">
+
+
+      <table class="table mt-5 " id="usersTable">
+        <thead>
+          <tr>
+            {{!-- <th scope="col">#</th> --}}
+            <th scope="col">No.</th>
+            <th scope="col">Date</th>
+            <th scope="col">User</th>
+            <th scope="col">Price</th>
+            <th scope="col">Payment Method</th>
+            <th scope="col">Status</th>
+            <th scope="col">Details</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each orders}}
+          {{#if this.status}}
+          <tr>
+            {{!-- <th scope="row">1</th> --}}
+            <td></td>
+            <td class="date">{{this.date}}</td>
+            <td>{{this.addressDetails.firstName}}</td>
+            {{#if this.totalPriceAfterOffer}}
+            <td>{{this.totalPriceAfterOffer}}</td>
+            {{else}}
+            <td>{{this.totalAmount}}</td>
+            {{/if}}
+            <td>{{this.paymentMethod}}</td>
+            <td>{{this.status}}</td>
+            <td><a href="/admin/view-orders/{{this._id}}">View More</a></td>
+            {{!-- <td>{{this.products.[0].quantity}}</td> --}}
+
+            {{#ifStatusEquals this.status 'placed' 'shipped' 'pending' false}}
+            {{!-- <td>Cancelled</td>
+            {{else}} --}}
+            <td>
+              <form action="/admin/updateOrderStatus" method="post">
+                <div class="input-group ">
+                  <select class="mr-4" id="statuschange{{../this._id}}" name="status">
+                    <option id="status" value="{{../this.status}}">{{../this.status}}</option>
+                    <hr>
+                    {{!-- <option value="order Confirmed">Order Confirmed</option> --}}
+                    <option id="shipped" value="shipped">shipped</option>
+                    {{!-- <option value="out for Delivery">out for Delivery</option> --}}
+                    <option id="delivered" value="delivered">delivered</option>
+                    <option id="cancelled" value="cancelled">cancelled</option>
+                  </select>
+                  <input type="text" name="orderId" value="{{../this._id}}" hidden>
+                  <input type="text" name="userId" value="{{../this.userId}}" hidden>
+                  <button  class="btn-btn-outline-secondary btn-success" type="submit">Submit</button>
+                </div>
+              </form>
+            </td>
+            {{/ifStatusEquals}}
+            
+            {{!-- {{#ifEquals this.status 'cancelled' false}}
+            <td></td>
+            {{/ifEquals}}
+
+            {{#ifEquals this.status 'delivered' false}}
+            <td></td>
+            {{/ifEquals}} --}}
+
+            {{#ifEquals this.status 'return request' false}}
+              <td>
+                <form action="/admin/updateOrderStatus" method="post">
+
+                <select id="statusChange{{../this._id}}" name="status">
+                    <option id="confirm" value="return approved">Approve return</option>
+                    <option id="reject" value="return rejected">Reject return</option>
+                </select>
+                
+                <input hidden type="text" name="orderId" value="{{../this._id}}">
+                <input type="text" name="userId" value="{{../this.userId}}" hidden>
+                {{!-- <input type="text" name="status" value="return approved" hidden> --}}
+
+                <button class="btn-btn-outline-secondary btn-success" type="submit">Submit</button>
+                </form>
+              </td>
+            {{/ifEquals}}
+
+            {{#ifEquals this.status 'return approved' false}}
+              <td class="text-success">return approved</td>
+            {{/ifEquals}}
+
+            {{#ifEquals this.status 'return rejected' false}}
+              <td class="text-danger">return rejected</td>
+            {{/ifEquals}}
+            
+          </tr>
+          {{/if}}
+          {{/each}}
+        </tbody>
+      </table>
+
+
+</section>
+
+<script>
+  
+</script>
+
+
+<script>
+  var table = document.getElementsByTagName('table')[0],
+    rows = table.getElementsByTagName('tr'),
+    text = 'textContent' in document ? 'textContent' : 'innerText';
+
+  for (var i = 1, len = rows.length; i < len; i++) {
+    rows[i].children[0][text] = i;
+  }
+
+</script>
+
+
+<script src="/javascripts/script.js"></script>
+
+<script src="../../helpers/hbs-helpers.js"></script>
+
+
+{{!-- <script>
+  $(document).ready(function () {
+    $('#usersTable').DataTable();
+  });
+
+
+</script> --}}
+

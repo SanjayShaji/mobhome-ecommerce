@@ -1,0 +1,104 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            {{!-- <div class="m-5 text-end">
+                <p>Total Price: <span class="ml-4">{{orderDetails.totalPrice}}</span></p>
+                <p>Total: <span class="ml-4">{{orderDetails.totalAmount}}</span></p>
+
+            </div> --}}
+
+
+            <div class="card border border-dark mb-3 shadow-0 " style="max-width: 24rem;">
+                {{!-- <div class="card-header">Header</div> --}}
+                <div class="card-body text-center mt-3">
+                    <h5 class="card-title">Price Details</h5>
+                    <div class="m-3">
+                    <span class="m-4">Price: </span><span class="mb-3 ">Rs. {{orderDetails.totalPrice}}</span><br>
+                    </div>
+                    <div class="m-3">
+                    {{#if orderDetails.totalPriceAfterOffer}}
+                    <span class="m-2">Discount: </span><span class="mb-3">-Rs. {{orderDetails.totalDiscount}}</span><br><br>
+                    <span class="m-2">Coupon- Offer: </span><span class="mb-3">-Rs. {{orderDetails.discountedPrice}}</span>
+                    {{else}}
+                    <span class="m-2">Discount: </span><span class="mb-3">-Rs. {{orderDetails.totalDiscount}}</span>
+                    {{/if}}
+                    </div>
+                    <hr>
+                    <div>
+                    
+                    {{#if orderDetails.totalPriceAfterOffer}}
+                    <span class="m-4">Total:</span><span class="mb-3">Rs. {{orderDetails.totalPriceAfterOffer}}</span>
+                    {{else}}
+                    <span class="m-4">Total:</span><span class="mb-3">Rs. {{orderDetails.totalAmount}}</span>
+                    {{/if}}
+
+                    <hr><hr>
+                    </div>
+                </div>
+                <div class="m-4 text-center">
+                   <h3 class="card-title">User Details</h3>
+                    <div class="row ml-3">
+                        {{!-- <div class="col-2"></div> --}}
+                        <div class="col-4 text-end">
+                            <div>Full Name: </div>
+                            <div>Address:</div>
+                            <div>City:</div>
+                            <div>State: </div>
+                            <div>Pin Code: </div>
+                            <div>email: </div>
+
+                        </div>
+                        <div class="col-8 text-left">
+                            <div>{{userAddress.firstName}} {{userAddress.lastName}}</div>
+                            <div>{{userAddress.address}}</div>
+                            <div>{{userAddress.city}}</div>
+                            <div>{{userAddress.state}}</div>
+                            <div>{{userAddress.pincode}}</div>
+                            <div>{{userAddress.email}}</div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-8 ">
+            {{#each orderProducts}}
+            <div class="card mb-3" style="max-width: 740px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/images/product-images/{{this.product.img.[0]}}" alt="Trendy Pants and Shoes"
+                            class="img-fluid rounded-start" />
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text ">
+                                {{this.product.name}} <br><br>
+                                <span>Rs. {{this.product.price}}</span><br>
+                                <span>Quantity: {{this.quantity}}</span>
+                            </p>
+                            <p class="card-text">
+                                {{!-- <small class="text-muted">Last updated 3 mins ago</small> --}}
+                            </p>
+                        </div>
+                    </div>
+
+                    {{!-- <div class="col-md-3 text-center" style="margin-top: 6rem;"> --}}
+                        {{!-- <select name="" id="">
+                            <option value="">status</option>
+                        </select> --}}
+                        {{!-- {{this.status}}
+                    </div> --}}
+
+
+                </div>
+            </div>
+
+            {{/each}}
+        </div>
+    </div>
+</div>
