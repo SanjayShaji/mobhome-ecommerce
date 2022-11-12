@@ -1,34 +1,34 @@
+ 
 
-<section style="margin: 8rem;">
-  <div class="container py-5 h-100">
+  <div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
-          <div class="card-body p-5">
+          <div class="card-body p-5 ">
 
             <h3 class="mb-5 text-center">OTP Log in</h3>
             {{#if otpLoginErr}}
                 <p class="btn-danger">{{otpLoginErr}}</p>
               {{/if}}
-              
             <form action="/otp-login" method="POST">
+              
               <div>
-                <label class="form-label" for="phoneNumber">Phone Number</label>
-                <input type="number" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg"required/>
+                <label for="phoneNumber">Phone Number</label>
+                <input type="number" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" required />
               </div>
-
-              {{!-- {{#if loginPasswordErr}}
-              <p>{{loginPasswordErr}}</p>
-              {{/if}} --}}
 
               <button class="btn btn-primary btn-lg btn-block" type="submit">Continue</button>
             </form>
-        
-            <p class="m-3 text-center">OR</p>
+            <p class="text-center mt-2">OR</p>
               <a href="/login"><button class="btn btn-success btn-lg btn-block" type="submit">Login with Email</button></a>
+            <p class="mt-4">Don't have an Account? Create one <a style="color: green; text-decoration: underline;" href="signup">sign up</a></p>
+            <hr>
           </div>
         </div>
+
       </div>
     </div>
   </div>
-</section>
+
+
+

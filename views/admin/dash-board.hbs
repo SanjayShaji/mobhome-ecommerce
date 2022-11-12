@@ -35,16 +35,14 @@
         background: white;
     }
 </style> --}}
-</head>
 
-<body>
     <div class="container">
 
         <div class="text-center">
             <h2>Sales Graph</h2>
         </div>
         <div class="row">
-            <div class="col-10">
+            <div class="col-12">
                 <div class="chartCard">
                     <div class="chartBox">
                         <div class="filter">
@@ -59,7 +57,9 @@
                                 <li><a onclick="yearlyReport()" class="dropdown-item" href="#">This Year</a></li>
                             </ul>
                         </div>
-                        <canvas id="sales-chart"></canvas>
+                        <div class="table-responsive ">
+                        <canvas id="sales-chart" style="height:300px;" class="table"></canvas>
+                        </div>
                         
                         <div class="container">
                             <div class="row">
@@ -84,8 +84,10 @@
     </div>
         {{!-- ///////////////next chart --}}
         <div class="row" >
-            <div class="col" style="height: 15rem;">
-                <canvas id="payment-chart"></canvas>
+            <div class="col-12" >
+                <div class="table-responsive ">
+                <canvas id="payment-chart" style="height:300px;" class="table"></canvas>
+                </div>
             </div>
         </div>
 
@@ -169,7 +171,7 @@
                     data: data,
                     options: {
                         aspectRatio: 3,
-                        responsive: true
+                        responsive: false
                     }
                 };
 
@@ -310,7 +312,7 @@
                     data: data,
                     options: {
                         aspectRatio: 3,
-                        responsive: true
+                        responsive: false
                     }
                 };
 

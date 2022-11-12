@@ -1,6 +1,6 @@
-<div class="container">
+{{!-- <div class="container"> --}}
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-sm-12">
             <h3>Add Coupon</h3>
             <form action="/admin/add-coupon" method="POST">
                 <div>
@@ -27,8 +27,9 @@
             </form>
         </div>
         <div class="col-1"></div>
-        <div class="col-8 ">
+        <div class="col-md-8 col-sm-12">
 
+            <div class="table-responsive">
             <table class="table mt-5" id="usersTable">
                 <thead>
                     <tr>
@@ -59,10 +60,11 @@
                     {{/each}}
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
-</div>
+{{!-- </div> --}}
 
 <script>
     var table = document.getElementsByTagName('table')[0],

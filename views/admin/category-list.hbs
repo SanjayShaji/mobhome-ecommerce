@@ -6,7 +6,7 @@
 
 <div class="container fa-border">
     <div class="row">
-        <div class="col-4 border border-success" style="border-radius: 1rem;">
+        <div class="col-md-4 col-sm-12 border border-success" style="border-radius: 1rem;">
             <div class="card-body ">
 
                 <h4 style="margin-top: 30px;" class="text-center">Add Category</h4>
@@ -62,48 +62,28 @@
             </div> --}}
         </div>
         {{!-- //////////////////////////////////////////////////////////////// --}}
-        <div class="col-6 ml-5">
+            <div class="col-md-1"></div>
+        
+        <div class="col-md-5 col-sm-12">
             <div class="col-2 ms-auto mt-4 mb-3">
                 {{!-- <a href="/admin/add-category" class="btn btn-success ">Add Category</a> --}}
             </div>
-            {{!-- <table class="table mt-5" id="usersTable">
-                <h4 class="text-center mb-4">Categories</h4>
-                <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Categories</th>
-                        <th scope="col">Discount</th>
-                        <th scope="col">Sub-categories</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each category}}
-                    <tr>
-                        <td>1</td>
-                        <td>{{this.name}}</td>
-                        <td>{{this.discount}}</td>
-                        {{#each this.subCategories}}
-                        <td>{{this}}</td>
-                        {{/each}}
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table> --}}
+
             <div class="row">
                 <div class="col-1">
                     <span>No.</span>
                 </div>
 
                 <div class="col-3">
-                    <h5>Categories</h5>
+                    <span>Categories</span>
                 </div>
 
                 <div class="col-4">
-                    <h5>Discount</h5>
+                    <span>Discount</span>
                 </div>
 
                 <div class="col-4">
-                    <h5>Sub-categories</h5>
+                    <span>Sub-categories</span>
                 </div>
             </div>
             {{#each category}}
@@ -129,6 +109,8 @@
             </div>
             {{/each}}
             <hr>
+            
+
         </div>
     </div>
 </div>
