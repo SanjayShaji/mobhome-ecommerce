@@ -3,11 +3,11 @@
         <div class="text-center">
             <h3 class="card-title">Addresses</h3><!-- End .card-title -->
         </div>
-        <div class="text-end">
+        <div class="text-end mt-4">
             <a href="/add-address" class="btn btn-success">Add Address</a><!-- End .card-title -->
         </div>
         {{#each address}}
-        <div class="col-6">
+        <div class="col-8">
             <div class="card-body">
                 <p>{{this.firstName}}
                     {{this.lastName}}<br>
@@ -22,7 +22,7 @@
                 <hr>
 
                 <!-- Modal -->
-                <div style="margin-left: 200px;" class="modal fade" id="exampleModal{{this._id}}" tabindex="-1"
+                <div class="modal fade" id="exampleModal{{this._id}}" tabindex="-1"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -114,7 +114,7 @@
                 --}}
             </div><!-- End .card-body -->
         </div>
-        <div class="col-6 mt-5">
+        <div class="col-4 mt-5">
             <a style="cursor: pointer;" data-mdb-toggle="modal" data-mdb-target="#exampleModal{{this._id}}">
                 <i class="icon-edit"></i></a>
 

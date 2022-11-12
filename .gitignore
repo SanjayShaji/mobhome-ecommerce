@@ -1,3 +1,5 @@
 node_modules/
 .env
-public/images/
+public/images/product-images/*
+public/images/brand-images/*
+public/images/banner-images/*
