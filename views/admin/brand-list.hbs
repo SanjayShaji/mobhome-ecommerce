@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+        <div class="col-md-4 col-sm-12">
             <div class="" style="border-radius: 1rem;">
                 <div class="card-body ">
 
-                    <hdz4 style="margin-top: 30px;" class="text-center">Add Brand</h4>
+                    <h4 style="margin-top: 30px;" class="text-center">Add Brand</h4>
 
                     <form action="/admin/add-brand" method="POST" enctype="multipart/form-data">
                         <div>
@@ -36,7 +36,8 @@
             </div>
         </div>
 
-        <div class="col-8">
+        <div class="col-md-8 col-sm-12">
+            <div class="table-responsive">
             <table class="table mt-5" id="usersTable">
                 <thead>
                     <tr>
@@ -46,6 +47,8 @@
                         {{!-- <th scope="col">Description</th> --}}
                         <th scope="col">Image</th>
                         <th></th>
+                        <th></th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -59,10 +62,9 @@
                         <td><img height="50px" width="50px" src="/images/brand-images/{{this.img.[0]}}" alt=""></td>
 
                         <td><a data-mdb-toggle="modal" data-mdb-target="#exampleModal{{this._id}}" href="/admin/edit-brand/{{this._id}}">
-                            <button class="btn btn-success ">edit</button></a>
-                            <a href="/admin/delete-brand/{{this._id}}" onclick="return confirm('do you want to delete the category"><button
-                                    class="btn btn-danger">delete</button></a>
-                        </td>
+                            <button class="btn btn-success ">edit</button></a></td>
+                          <td><a href="/admin/delete-brand/{{this._id}}" onclick="return confirm('do you want to delete the category"><button
+                                    class="btn btn-danger">delete</button></a></td>
                     </tr>
 
                     <!-- Modal -->
@@ -139,6 +141,7 @@
                     {{/each}}
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

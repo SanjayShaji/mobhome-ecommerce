@@ -3,9 +3,9 @@
   src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
 
 
-<section style="margin: 80px;">
+<section style="margin-left: 10px;">
   <div class="container">
-    <div class="row">
+    <div class="table-responsive">
 
       <table class="table" id="usersTable">
         <thead>
@@ -23,8 +23,7 @@
         <tbody>
           {{#each orders}}
           <tr>
-            <td>
-              <p>1</p>
+            <td style="font-size: 15px;">
             </td>
             <td>
               <p>{{this.date}}</p>

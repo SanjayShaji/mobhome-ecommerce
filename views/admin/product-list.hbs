@@ -20,6 +20,9 @@
             <th scope="col">Stock</th>
             <th scope="col">Image</th>
             <th></th>
+            <th></th>
+            <th></th>
+
           </tr>
         </thead>
         <tbody>
@@ -34,20 +37,20 @@
             <td>{{this.stock}}</td>
             <td><img height="50px" width="50px" src="/images/product-images/{{this.img.[0]}}" alt=""></td>
 
-            <td><a style="color: white; text-decoration: none;" href="/admin/edit-product/{{this._id}}"><button
-                  class="btn btn-success">edit</button></a>
+            <td ><a style="color: white; text-decoration: none;" href="/admin/edit-product/{{this._id}}"><button
+                  class="btn btn-success">edit</button></a></td>
 
-              <a style="color: white; text-decoration: none;" onclick="deleteButton('{{this._id}}')"><button
-                  class="btn btn-danger" id="deleteButton">delete</button></a>
+              <td><a style=" margin-left: -15px; color: white; text-decoration: none;" onclick="deleteButton('{{this._id}}')"><button
+                  class="btn btn-danger" id="deleteButton">delete</button></a></td>
 
               {{#if status}}
-              <a style="color: white; text-decoration: none;" href="/admin/block-product/{{this._id}}"><button
-                  class="btn btn-warning">block</button></a>
+              <td><a style="margin-left: -15px; color: white; text-decoration: none;" href="/admin/block-product/{{this._id}}"><button
+                  class="btn btn-warning">block</button></a></td>
               {{else}}
-              <a style="color: white; text-decoration: none;" href="/admin/unblock-product/{{this._id}}"><button
-                  class="btn btn-primary">unblock</button></a>
+              <td><a style="margin-left: -15px; color: white; text-decoration: none;" href="/admin/unblock-product/{{this._id}}"><button
+                  class="btn btn-primary">unblock</button></a></td>
               {{/if}}
-            </td>
+            {{!-- </td> --}}
           </tr>
           {{!-- {{/if}} --}}
           {{/each}}

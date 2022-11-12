@@ -36,8 +36,10 @@
 <!-- Tabs content -->
 <div class="tab-content" id="ex2-content">
     <div class="tab-pane fade show active" id="ex2-tabs-1" role="tabpanel" aria-labelledby="ex2-tab-1">
-        <button class="btn btn-success" onclick="weeklyReportPDF()">Weekly Report Pdf</button>
-        <button class="btn btn-primary" onclick="weeklyData()">Weekly Excel Sheet Data</button>
+        {{!-- <div > --}}
+        <button class="btn btn-success" onclick="weeklyReportPDF()">Pdf Report</button>
+        <button class="btn btn-primary" onclick="weeklyData()">Excel Report</button>
+        {{!-- </div> --}}
         <div class="table-responsive">
             <table class="table mt-5" id="weekly-table">
                 <thead>
@@ -70,8 +72,8 @@
 
     </div>
     <div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">
-        <button class="btn btn-success" onclick="monthlyReportPDF()">Monthly Report Pdf</button>
-        <button class="btn btn-primary" onclick="monthlyData()">Monthly Excel Sheet Data</button>
+        <button class="btn btn-success" onclick="monthlyReportPDF()">Pdf Report</button>
+        <button class="btn btn-primary" onclick="monthlyData()">Excel Report</button>
 
         <div class="table-responsive">
         <table class="table mt-5" id="monthly-table">
@@ -102,8 +104,8 @@
         </div>
     </div>
     <div class="tab-pane fade" id="ex2-tabs-3" role="tabpanel" aria-labelledby="ex2-tab-3">
-        <button class="btn btn-success" onclick="yearlyReportPDF()">Yearly Report Pdf</button>
-        <button class="btn btn-primary" onclick="yearlyData()">Yearly Excel Sheet Data</button>
+        <button class="btn btn-success" onclick="yearlyReportPDF()">Pdf Report</button>
+        <button class="btn btn-primary" onclick="yearlyData()">Excel Report</button>
         
         <div class="table-responsive">
 
