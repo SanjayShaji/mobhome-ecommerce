@@ -91,11 +91,40 @@ $.ajax({
             let count = $('#wish-list-count').html();
             count = parseInt(count)+1;
             $('#wish-list-count').html(count)
-            document.getElementById('wishlist'+productId).innerHTML = `<i class="bi bi-heart-fill text-danger"></i>`
+                // location.reload();
+            
+            document.getElementById('addHeartIcon'+productId).innerHTML = `<i 
+                class="bi bi-heart-fill text-danger" style="cursor: pointer;"
+                title="Add to wishlist"></i>`
+            // document.getElementById('heartIconWhite'+productId).style.display = "none"
+                
         }
     }
 })
 
+}
+
+function removeWishList(productId){
+    console.log(productId)
+    $.ajax({
+        url: '/remove-wishlist-item/'+ productId,
+        method: 'get',
+        success: (response)=>{
+            console.log(response)
+            if(response.status){
+                let count = $('#wish-list-count').html();
+                count = parseInt(count)-1;
+                $('#wish-list-count').html(count);
+                // location.reload();
+                document.getElementById('wishlist'+productId).style.display = 'none'
+
+                document.getElementById('removeHeartIcon'+productId).innerHTML = `<i 
+                class="bi bi-heart" style="cursor: pointer;"
+                title="Add to wishlist"></i>`
+                // document.getElementById('heartIconRed'+productId).style.display = "none"
+            }
+        }
+    })
 }
 
 

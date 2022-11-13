@@ -158,12 +158,12 @@
 
 
                                             {{!-- {{#wishlistHeartIcon this._id ../wishlist}}
-                                            <i onclick="removeWishList('{{../this._id}}')" id="listed{{../this._id}}"
-                                                class="bi bi-heart-fill text-danger" style="cursor: pointer;"
+                                            <i onclick="removeWishList('{{../this._id}}')" id="removeHeartIcon{{../this._id}}"
+                                                class="removeHeartIcon{{../this._id}} bi bi-heart-fill text-danger" style="cursor: pointer;"
                                                 title="Remove from wishlist"></i>
                                             {{else}}
-                                            <i onclick="addToWishList('{{../this._id}}')" id="wishlist{{../this._id}}"
-                                                class="bi bi-heart" style="cursor: pointer;"
+                                            <i onclick="addToWishList('{{../this._id}}')" id="addHeartIcon{{../this._id}}"
+                                                class="addHeartIcon{{../this._id}} bi bi-heart" style="cursor: pointer;"
                                                 title="Add to wishlist"></i>
                                             {{/wishlistHeartIcon}} --}}
 
@@ -247,7 +247,7 @@
 
 
                     </div><!-- End .row -->
-    <div class="text-center " id="load"> <b class=""> Load More... </b></div>
+    <div class="text-center " style="cursor: pointer;" id="load"> <b class=""> Load More... </b></div>
 
                 </div>
             </div><!-- End .products -->

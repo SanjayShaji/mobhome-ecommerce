@@ -325,13 +325,15 @@ const locals = async function (req, res, next) {
   
       let results = res.paginatedResults
       console.log(results);
+      let brandIds = ''
       // let filter  = await userHelpers
       let categories = await categoryHelpers.getALlCategories();
       let brands = await brandHelpers.getAllBrandDetails();
       if(req.session.filterProduct){
         products = req.session.filterProduct
+        brandIds = req.session.brandIds
       }
-      res.render('users/product-list', {user:true, vUser: req.session.user,  products, results, categories, brands});
+      res.render('users/product-list', {user:true, vUser: req.session.user,  products, brandIds, results, categories, brands});
       req.session.filterProduct= false
       
     } catch (error) {
@@ -355,6 +357,7 @@ const locals = async function (req, res, next) {
     try {
       console.log("/////////////////////");
       console.log(req.body)
+      req.session.brandIds = req.body
       console.log("/////////////////////");
       // let categories = await userHelpers.getALlCategories();
       // let brands = await userHelpers.getAllBrandDetails();
@@ -831,7 +834,7 @@ const locals = async function (req, res, next) {
   const removeWishListItem = async(req,res)=>{
     try {
       await wishlistHelpers.removeWishListItem(req.session.user._id, req.params.id)
-      res.redirect('/wish-list')
+      res.json({status:true})
       
     } catch (error) {
       console.log(error)

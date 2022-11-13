@@ -103,7 +103,7 @@ module.exports = {
             function doesAnyBrandIdMatch(element){
                 return brandId==element
             }
-            if(brandArray.some(doesAnyBrandIdMatch)){
+            if(brandArray.brand.some(doesAnyBrandIdMatch)){
                 return options.fn()
             }else{
                 return options.inverse();   
