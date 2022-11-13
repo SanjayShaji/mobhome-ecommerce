@@ -149,12 +149,12 @@
 
             </div><!-- End .heading -->
 
-            <div class="products container">
-                <div class="container">
+            <div style="word-break: break-all;" class="products ">
+                <div class="container-fluid">
                     <div class="row ">
 
                         {{#each products}}
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class=" col-6 col-md-4 col-lg-3">
 
                             <div class="product product-2">
                                 <figure class="product-media ">
@@ -236,7 +236,7 @@
                                     <h3 class="product-title">{{this.name}}</h3><!-- End .product-title -->
                                     <div class="product-price">
                                         <span style="color: black;" class=""> ₹{{this.priceAfterDiscount}}</span>
-                                        <span style=" text-decoration: line-through; font-size: 15px; color: gray;"
+                                        <span style=" text-decoration: line-through; font-size: 13px; color: gray;"
                                             class="ml-2">₹{{this.price}}</span>
                                         <span style="color: green; font-size: 15px;" class="ml-2">{{this.discountOff}}%
                                             off</span>
