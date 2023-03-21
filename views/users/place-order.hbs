@@ -182,7 +182,21 @@
 												<td></td>
 											</tr><!-- End .summary-shipping-row -->
 
+											<tr class="summary-shipping-row">
+												<td>
+													{{!-- <div class="custom-control custom-radio"> --}}
+														<input type="radio" id="standart-shipping" name="paymentMethod"
+															value="wallet">
+														<label for="standart-shipping">Wallet</label>
+														{{#if walletError}}
+														<p class="text-danger">{{walletError}}</p>
+														{{/if}}
+														{{!--
+													</div><!-- End .custom-control --> --}}
+												</td>
+												<td></td>
 
+											</tr><!-- End .summary-shipping-row -->
 											{{!-- <tr class="summary-total">
 												<td>Total:</td>
 												{{#if couponPrice}}
@@ -194,12 +208,13 @@
 											{{!-- <input readonly type="text" id="discountedPrice"> --}}
 										</tbody>
 									</table><!-- End .table table-summary -->
-								{{#if address}}
+									{{#if address}}
 									<button type="submit"
 										class="btn btn-outline-primary-2 btn-order btn-block">Checkout</button>
-								{{else}}
-								<p class="text-center text-danger">please add address</p>
-								{{/if}}
+									{{else}}
+									<p class="text-center text-danger">please add address</p>
+									{{/if}}
+
 								</div><!-- End .summary -->
 
 							</aside><!-- End .col-lg-3 -->
@@ -261,6 +276,10 @@
 
 				if (response.codSuccess) {
 					location.href = '/order-success'
+				} else if (response.wallet) {
+					location.href = '/order-success'
+				} else if (response.walletError) {
+					location.href = '/place-order'
 				} else if (response.paypal) {
 					console.log(response)
 					location.href = '/pay/' + response.orderId

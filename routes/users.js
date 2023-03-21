@@ -31,20 +31,21 @@ const {
   orderSuccess,
   paypalOrderSuccess,
   getUserOrders,
+  addReview,
   viewOrderProducts,
   addAddress,
   doAddAddress,
   dashBoard,
+  walletPage,
+  addWallet,
   orderCancel,
   applyCoupon,
   paypalPayment,
   paypalOrderCancel,
   wishlist,
-  addToWishList,
   returnOrder,
   locals,
   removeCart,
-  removeWishListItem,
   productOrderCancel,
   editAddress,
   changePassword,
@@ -52,7 +53,8 @@ const {
   deleteAddress,
   profilePage,
   productList,
-  invoice
+  invoice,
+  addOrRemovewishList
 }= require('../controllers/user-controller');
 
 const cartHelpers = require('../helpers/cart-helpers');
@@ -120,6 +122,8 @@ router.get('/order-success', verifyUser, orderSuccess)
 
 router.get('/order-success/:id',verifyUser, paypalOrderSuccess)
 
+router.post('/add-review',verifyUser, addReview)
+
 router.get('/orders', verifyUser, getUserOrders)
 
 router.get('/invoice/:id', verifyUser, invoice)
@@ -140,6 +144,10 @@ router.get('/dash-board', verifyUser, dashBoard)
 
 router.get('/profile', verifyUser, profilePage)
 
+router.get('/wallet', verifyUser, walletPage)
+
+router.post('/add-wallet', verifyUser, addWallet)
+
 router.post('/change-password', verifyUser, changePassword)
 
 router.get('/order-cancel/:id', orderCancel)
@@ -150,11 +158,9 @@ router.get('/pay/:id', paypalPayment);
 
 router.get('/cancel', paypalOrderCancel);
 
-router.get('/wish-list', verifyUser, wishlist)
+router.get('/wish-list', verifyUser, wishlist);
 
-router.get('/add-to-wish-list/:id', addToWishList)
-
-router.get('/remove-wishlist-item/:id', removeWishListItem)
+router.get('/add-remove-wish-list/:id', addOrRemovewishList)
 
 router.post('/return-order', returnOrder)
 

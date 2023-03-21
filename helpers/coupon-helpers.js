@@ -1,6 +1,6 @@
-var db = require('../config/connection')
-var objectId = require('mongodb').ObjectId
-const collection = require('../collections/collection')
+var db = require('../config/connection');
+var objectId = require('mongodb').ObjectId;
+const collection = require('../collections/collection');
 
 
 module.exports = {
@@ -8,33 +8,33 @@ module.exports = {
     addCoupon :(data)=>{
         return new Promise(async(resolve,reject)=>{
             let coupon = await db.get().collection(collection.COUPON_COLLECTION).insertOne(data);
-            resolve(coupon)
-        })
+            resolve(coupon);
+        });
     },
 
     couponAllDetails :()=>{
         return new Promise(async(resolve, reject)=>{
             let coupons = await db.get().collection(collection.COUPON_COLLECTION).find().toArray();
-            resolve(coupons)
-        })
+            resolve(coupons);
+        });
     },
 
-     deleteCoupon : (couponId)=>{
+    deleteCoupon : (couponId)=>{
         return new Promise(async(resolve,reject)=>{
             let coupon = await db.get().collection(collection.COUPON_COLLECTION).deleteOne({_id: objectId(couponId)});
-            resolve(coupon)
-        })
-     },
+            resolve(coupon);
+        });
+    },
     
 
     applyCoupon: ({ code }, total, userId) => {
 
-        let response = {}
+        let response = {};
 
-        let d = new Date()
-        let month = '' + (d.getMonth() + 1)
-        let day = '' + d.getDate()
-        let year = d.getFullYear()
+        let d = new Date();
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        let year = d.getFullYear();
 
 
 
@@ -44,50 +44,50 @@ module.exports = {
             day = '0' + day;
 
 
-        let time = [year, month, day].join('-')
+        let time = [year, month, day].join('-');
 
-        console.log(code, total, userId)
+        console.log(code, total, userId);
         return new Promise(async (resolve, reject) => {
-            let couponFind = await db.get().collection(collection.COUPON_COLLECTION).findOne({ code: code })
+            let couponFind = await db.get().collection(collection.COUPON_COLLECTION).findOne({ code: code });
             if (couponFind) {
-                response.couponFind = true
-                let currentDate = time
-                console.log(currentDate)
-                console.log(couponFind.expiryDate)
+                response.couponFind = true;
+                let currentDate = time;
+                console.log(currentDate);
+                console.log(couponFind.expiryDate);
                 if (currentDate > couponFind.expiryDate) {
-                    response.expiredCoupon = true
-                    response.couponAppliedStatus = "Sorry, Coupon is expired"
-                    console.log(response.couponExpired)
-                    resolve(response)
+                    response.expiredCoupon = true;
+                    response.couponAppliedStatus = 'Sorry, Coupon is expired';
+                    console.log(response.couponExpired);
+                    resolve(response);
                 } else {
-                    response.expiredCoupon = false
-                    let couponAlreadyApplied = await db.get().collection('appliedCoupon').findOne({ userId: objectId(userId), couponId: couponFind._id })
+                    response.expiredCoupon = false;
+                    let couponAlreadyApplied = await db.get().collection('appliedCoupon').findOne({ userId: objectId(userId), couponId: couponFind._id });
                     if (couponAlreadyApplied) {
 
-                        response.appliedCoupon = true
-                        response.couponAppliedStatus = "Coupon already Applied"
-                        resolve(response)
+                        response.appliedCoupon = true;
+                        response.couponAppliedStatus = 'Coupon already Applied';
+                        resolve(response);
 
                     } else {
-                        response.appliedCoupon = false
-                        response.couponAppliedStatus = "Coupon Successfully applied"
-                        let couponDiscountpercentage = couponFind.discount
-                        let discountPrice = Math.round((couponDiscountpercentage / 100) * total)
-                        let totalPriceAfterOffer = Math.round(total - discountPrice)
-                        response.totalPriceAfterOffer = Math.round(totalPriceAfterOffer)
-                        response.discountPrice = discountPrice
+                        response.appliedCoupon = false;
+                        response.couponAppliedStatus = 'Coupon Successfully applied';
+                        let couponDiscountpercentage = couponFind.discount;
+                        let discountPrice = Math.round((couponDiscountpercentage / 100) * total);
+                        let totalPriceAfterOffer = Math.round(total - discountPrice);
+                        response.totalPriceAfterOffer = Math.round(totalPriceAfterOffer);
+                        response.discountPrice = discountPrice;
 
                         appliedCouponObj = {
                             userId: objectId(userId),
                             couponId: couponFind._id
-                        }
-                        db.get().collection('appliedCoupon').insertOne(appliedCouponObj)
-                        resolve(response)
+                        };
+                        db.get().collection('appliedCoupon').insertOne(appliedCouponObj);
+                        resolve(response);
                         db.get().collection('user').updateOne({ _id: objectId(userId) },
                             {
                                 $set: { couponId: couponFind._id }
                             }, { upsert: true }
-                        )
+                        );
                         // Swal.fire({
                         //     // position: 'top-end',
                         //     icon: 'success',
@@ -99,18 +99,18 @@ module.exports = {
                     }
                 }
             } else {
-                response.couponFind = false
-                response.couponAppliedStatus = "Coupon not found"
-                resolve(response)
+                response.couponFind = false;
+                response.couponAppliedStatus = 'Coupon not found';
+                resolve(response);
             }
 
-        })
+        });
     },
 
 
 
     getCouponPrice: (userId, total) => {
-        let totalPrice = total
+        let totalPrice = total;
         console.log(totalPrice);
         return new Promise((resolve, reject) => {
             db.get().collection('cart').aggregate([
@@ -146,14 +146,14 @@ module.exports = {
                 },
                 {
                     $project: {
-                        discountedPrice: { $multiply: [{ $divide: [{ $toInt: "$coupon.discount" }, 100] }, totalPrice] }, coupon: 1
+                        discountedPrice: { $multiply: [{ $divide: [{ $toInt: '$coupon.discount' }, 100] }, totalPrice] }, coupon: 1
                     }
                 },
                 {
                     $project: {
                         discountedPrice: 1,
                         totalAfterDiscount: { $subtract: [totalPrice, '$discountedPrice'] },
-                        couponId: "$coupon._id",
+                        couponId: '$coupon._id',
 
                     }
                 }
@@ -162,11 +162,11 @@ module.exports = {
                 console.log('********getDiscountPrice**********');
                 console.log(response);
                 console.log('********getDiscountPrice**********');
-                resolve(response)
+                resolve(response);
 
-            })
-        })
+            });
+        });
     },
-}
+};
 
 

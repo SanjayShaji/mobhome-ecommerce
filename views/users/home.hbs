@@ -152,24 +152,33 @@
 
                                     <div>
                                         <div class="product-action-vertical">
-                                            <a onclick="addToWishList('{{this._id}}')" style="cursor: pointer;"
+                                            {{!-- <a onclick="addToWishList('{{this._id}}')" style="cursor: pointer;"
                                                 class="btn-product-icon btn-wishlist text-danger"
-                                                title="Add to wishlist"></a>
+                                                title="Add to wishlist"></a> --}}
 
 
-                                            {{!-- {{#wishlistHeartIcon this._id ../wishlist}}
-                                            <i onclick="removeWishList('{{../this._id}}')" id="removeHeartIcon{{../this._id}}"
-                                                class="removeHeartIcon{{../this._id}} bi bi-heart-fill text-danger" style="cursor: pointer;"
-                                                title="Remove from wishlist"></i>
+                                            {{#wishlistHeartIcon this._id ../wishlist}}
+                                            <a onclick="addRemoveWishList('{{../this._id}}', '{{../../vUser}}')" id="removeHeartIcon{{../this._id}}"
+                                                 style="cursor: pointer;"
+                                                title="Remove from wishlist"><i class="bi bi-heart-fill text-danger"></i></a>
                                             {{else}}
-                                            <i onclick="addToWishList('{{../this._id}}')" id="addHeartIcon{{../this._id}}"
-                                                class="addHeartIcon{{../this._id}} bi bi-heart" style="cursor: pointer;"
-                                                title="Add to wishlist"></i>
-                                            {{/wishlistHeartIcon}} --}}
+                                            <a onclick="addRemoveWishList('{{../this._id}}', '{{../../vUser}}')" id="addHeartIcon{{../this._id}}"
+                                                style="cursor: pointer;"
+                                                title="Add to wishlist"><i class="bi bi-heart" ></i></a>
+                                            {{/wishlistHeartIcon}}
 
                                             {{!-- <button onclick="addToWishList('{{this._id}}')"
                                                 class="btn-product-icon btn-wishlist text-danger"
                                                 title="Add to wishlist"></button> --}}
+{{!-- //////////////////////////////////// --}}
+                                            {{!-- <a onclick="addRemoveWishList('{{this._id}}')" id="removeHeartIcons{{this._id}}"
+                                                style="cursor: pointer; display: none;"
+                                                title="Remove from wishlist"><i class="bi bi-heart-fill text-danger" ></i>
+                                            </a>
+                                            <a onclick="addRemoveWishList('{{this._id}}')" id="addHeartIcons{{this._id}}"
+                                                style="cursor: pointer; display: none;"
+                                                title="Add to wishlist"><i class="bi bi-heart" ></i>
+                                            </a> --}}
 
                                         </div><!-- End .product-action -->
                                     </div>
@@ -233,10 +242,10 @@
                                     </div><!-- End .product-price -->
                                     <div class="ratings-container">
                                         <div class="ratings">
-                                            <div class="ratings-val" style="width: 100%;"></div>
+                                            <div class="ratings-val" style="width: {{this.reviewsRating}}%;"></div>
                                             <!-- End .ratings-val -->
                                         </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 4 Reviews )</span>
+                                        <span class="ratings-text">( {{this.reviewsCount}} Reviews )</span>
                                     </div><!-- End .rating-container -->
                                 </div><!-- End .product-body -->
 
@@ -271,14 +280,14 @@
                             <a class="nav-link active" id="new-all-link" data-toggle="tab" href="#new-all-tab"
                                 role="tab" aria-controls="new-all-tab" aria-selected="true">All</a>
                         </li>
-                        <li class="nav-item">
+                        {{!-- <li class="nav-item">
                             <a class="nav-link" id="new-tv-link" data-toggle="tab" href="#new-tv-tab" role="tab"
                                 aria-controls="new-tv-tab" aria-selected="false">smart phones</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="new-computers-link" data-toggle="tab" href="#new-computers-tab"
                                 role="tab" aria-controls="new-computers-tab" aria-selected="false">feature phones</a>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </div><!-- End .heading-right -->
@@ -311,7 +320,7 @@
                                     }
                                 }
                             }'>
-                        {{#each products}}
+                        {{#each recommendedProducts}}
                         {{#if this.status}}
                         <div class="product product-2">
                             <figure class="product-media ">
@@ -366,8 +375,8 @@
 
                     </div><!-- End .owl-carousel -->
                 </div><!-- .End .tab-pane -->
-
-                <div class="tab-pane p-0 fade" id="new-tv-tab" role="tabpanel" aria-labelledby="new-tv-link">
+{{!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+                {{!-- <div class="tab-pane p-0 fade" id="new-tv-tab" role="tabpanel" aria-labelledby="new-tv-link">
                     <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl"
                         data-owl-options='{
                                 "nav": true, 
@@ -508,8 +517,8 @@
                 </div><!-- .End .tab-pane -->
 
             </div><!-- End .tab-content -->
-        </div><!-- End .container -->
-
+        </div><!-- End .container --> --}}
+{{!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
         <div class="container">
             <hr class="mb-0">
         </div><!-- End .container -->

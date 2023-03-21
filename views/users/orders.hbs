@@ -78,6 +78,13 @@
             <td><p>Order return request sent</p></td>
             {{/ifEquals}}
 
+            {{#ifEquals this.status 'shipped' true}}
+            <td><a href="/order-cancel/{{../this._id}}" onclick="return confirm('do you want to cancel the order')"><button
+                  class="btn btn-danger">Cancel
+                  Order</button></a>
+            </td>
+            {{/ifEquals}}
+
             {{#ifEquals this.status 'return approved' true}}
             <td><p class="text-success">Order return request approved</p></td>
             {{/ifEquals}}

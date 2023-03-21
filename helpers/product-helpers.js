@@ -55,6 +55,11 @@ module.exports = {
                         $addFields : {
                             priceAfterDiscount: {$round: {$subtract: [{$toInt: "$price"}, {$toInt:"$discountedAmount"}]} }
                         }
+                    },
+                    {
+                        $sort: {
+                            'createdAt' : -1
+                        }
                     }
     
                 ]).toArray()
@@ -66,6 +71,64 @@ module.exports = {
         })
     },
 
+    getAllRecommendedProducts : ()=>{
+        return new Promise(async(resolve, reject)=>{
+            try {
+                
+                let product = await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([
+                    {
+                        $lookup: {
+                            from: 'brand',
+                            localField: 'brand',
+                            foreignField: '_id',
+                            as: 'brandDetails'
+                        }
+                    },
+                    {
+                        $unwind: "$brandDetails"
+                    },
+                    {
+                        $lookup : {
+                            from : 'category',
+                            localField : 'category',
+                            foreignField : '_id',
+                            as : 'categoryDetails'
+                        }
+                    },
+                    {
+                        $unwind: "$categoryDetails"
+                    },
+
+                    {
+                        $addFields: {
+                            // discountOffer : {$cond : [ {$gt : [{$toInt: "$productOffer"}, {$toInt:"$categoryDetails.discount"}]}, {$toInt: "$productOffer"}, {$toInt:"$categoryDetails.discount"}] },
+                            discountOff: {$cond: { if: {$gt : ["$discount", "$categoryDetails.discount"]}, then: {$toInt: "$discount"}, else: {$toInt:"$categoryDetails.discount"} }},
+                        }
+                    },
+                    {
+                        $addFields :{
+                            discountedAmount: {$round : {$divide : [{$multiply: [{$toInt: "$price"}, {$toInt:"$discountOff"}]}, 100]} },
+                        }
+                    },
+                    {
+                        $addFields : {
+                            priceAfterDiscount: {$round: {$subtract: [{$toInt: "$price"}, {$toInt:"$discountedAmount"}]} }
+                        }
+                    },
+                    {
+                        $sort: {
+                            'discountedAmount' : -1
+                        }
+                    }
+    
+                ]).toArray()
+                console.log(product);
+                resolve(product)
+            } catch (error) {
+                console.log(error);
+            }
+        })
+    },
     // getProductDetails: (productId) => {
     //     return new Promise((resolve, reject) => {
     //         db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(productId) }).then(data => {
@@ -108,6 +171,22 @@ module.exports = {
                     {
                         $unwind: "$categoryDetails"
                     },
+                    {
+                        $addFields: {
+                            // discountOffer : {$cond : [ {$gt : [{$toInt: "$productOffer"}, {$toInt:"$categoryDetails.discount"}]}, {$toInt: "$productOffer"}, {$toInt:"$categoryDetails.discount"}] },
+                            discountOff: {$cond: { if: {$gt : ["$discount", "$categoryDetails.discount"]}, then: {$toInt: "$discount"}, else: {$toInt:"$categoryDetails.discount"} }},
+                        }
+                    },
+                    {
+                        $addFields :{
+                            discountedAmount: {$round : {$divide : [{$multiply: [{$toInt: "$price"}, {$toInt:"$discountOff"}]}, 100]} },
+                        }
+                    },
+                    {
+                        $addFields : {
+                            priceAfterDiscount: {$round: {$subtract: [{$toInt: "$price"}, {$toInt:"$discountedAmount"}]} }
+                        }
+                    }
 
                 ]).toArray()
                 resolve(products[0])
@@ -128,8 +207,11 @@ module.exports = {
             // priceAfterDiscount: productData.price - productData.price*productData.discount/100,
             stock: parseInt(productData.stock),
             category: objectId(productData.category),
+            reviewsCount: 0,
+            reviewsRating: 0,
             status: productData.status,
-            img: productData.img
+            img: productData.img,
+            createdAt: new Date()
         }
         return new Promise(async (resolve, reject) => {   
                 db.get().collection(collection.PRODUCT_COLLECTION).insertOne(products).then((data) => {
@@ -255,6 +337,67 @@ module.exports = {
             resolve(cart)
         })
     },
+    guestUserCart: (cartItems)=>{
+        return new Promise(async(resolve, reject)=>{
+            // Convert cart item IDs to ObjectIDs
+            cartItems.forEach((item, index, arr)=>{
+                return arr[index] = objectId(item)
+            })
+    
+            // Use aggregation pipeline to lookup product information for each cart item
+            let cart = await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([
+                // Match products with IDs in the cart
+                {
+                    $match: {
+                        _id: {$in : cartItems}
+                    }
+                },
+                // Lookup additional information from related collections
+                {
+                    $lookup: {
+                        from: 'brand',
+                        localField: 'brand',
+                        foreignField: '_id',
+                        as: 'brandDetails'
+                    }
+                },
+                {
+                    $unwind: "$brandDetails"
+                },
+                {
+                    $lookup: {
+                        from: 'category',
+                        localField: 'category',
+                        foreignField: '_id',
+                        as: 'categoryDetails'
+                    }
+                },
+                {
+                    $unwind: "$categoryDetails"
+                },
+                {
+                    $addFields: {
+                        // discountOffer : {$cond : [ {$gt : [{$toInt: "$productOffer"}, {$toInt:"$categoryDetails.discount"}]}, {$toInt: "$productOffer"}, {$toInt:"$categoryDetails.discount"}] },
+                        discountOff: {$cond: { if: {$gt : ["$discount", "$categoryDetails.discount"]}, then: {$toInt: "$discount"}, else: {$toInt:"$categoryDetails.discount"} }},
+                    }
+                },
+                {
+                    $addFields :{
+                        discountedAmount: {$round : {$divide : [{$multiply: [{$toInt: "$price"}, {$toInt:"$discountOff"}]}, 100]} },
+                    }
+                },
+                {
+                    $addFields : {
+                        priceAfterDiscount: {$round: {$subtract: [{$toInt: "$price"}, {$toInt:"$discountedAmount"}]} }
+                    }
+                }
+            ]).toArray();
+    
+            console.log(cart);
+            resolve(cart);
+        })
+    },
+    
 
     searchProduct : (payload)=>{
         return new Promise(async(resolve,reject)=>{

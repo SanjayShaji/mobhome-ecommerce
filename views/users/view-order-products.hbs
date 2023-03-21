@@ -1,4 +1,4 @@
-
++
 
 
 <div>
@@ -58,7 +58,11 @@
                                         <div class="col-6 col-lg-3 order-lg-last">
                                             <div class="product-list-action">
                                                 <div class="product-price">
-                                                    {{this.product.price}}
+                                                    <span>₹ </span><span id="priceAfterDiscount{{this._id}}">{{this.priceAfterDiscount}} &nbsp;</span>
+												{{!-- <span style="text-decoration: line-through; font-size:small; color:gray">₹ </span> --}}
+												<span style="text-decoration: line-through; font-size:small; color:gray" id="price{{this._id}}">₹{{this.product.price}}</span><br>
+												<span style="font-size: small; color: green;"> &nbsp;{{this.discountOff}}%</span>
+
                                                 </div><!-- End .product-price -->
                                                 <div class="ratings-container">
                                                     <div class="ratings">

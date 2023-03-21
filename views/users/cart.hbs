@@ -183,8 +183,8 @@
 										<tr>
 											<th>Product</th>
 											<th>Price</th>
-											{{!-- <th>discounted amount</th> --}}
-											{{!-- <th>amount</th> --}}
+											<th>discount</th>
+											<th>amount</th>
 											{{!-- <th></th> --}}
 											{{!-- <th></th> --}}
 
@@ -214,7 +214,16 @@
 											</td>
 											
 											
-											<td class="price-col"><span>{{this.price}}</span></td>
+											<td class="price-col"><span>₹ {{this.price}}</span></td>
+											<td class="price-col"><span>{{this.discountOff}}%</span></td>
+
+											<td class="price-col">
+												<span>₹ </span><span id="priceAfterDiscount{{this._id}}">{{this.priceAfterDiscount}}</span>
+												{{!-- <span style="text-decoration: line-through; font-size:small; color:gray">₹ </span> --}}
+												<span style="text-decoration: line-through; font-size:small; color:gray" id="price{{this._id}}">₹ {{this.price}}</span><br>
+												<span style="font-size: small; color: green;">{{this.discountOff}}%</span>
+												{{!-- <span>{{this.discountedAmount}}</span> --}}
+											</td>
 
 											<td class="remove-col">
                                                 <a href="/remove-guestUserCart/{{this._id}}"><button onclick="return confirm('do you want to remove the cart Item - {{this.name}}')" class="btn-remove"><i class="icon-close"></i></button></a>

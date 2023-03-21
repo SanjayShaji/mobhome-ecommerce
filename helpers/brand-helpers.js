@@ -1,14 +1,14 @@
-var db = require('../config/connection')
-var objectId = require('mongodb').ObjectId
-const collection = require('../collections/collection')
+var db = require('../config/connection');
+var objectId = require('mongodb').ObjectId;
+const collection = require('../collections/collection');
 
 
 module.exports = {
     addBrand : (details)=>{
         return new Promise(async(resolve,reject)=>{
             let brand = await db.get().collection(collection.BRAND_COLLECTION).insertOne(details);
-            resolve(brand)
-        })
+            resolve(brand);
+        });
     },
 
     updateBrand: (brandId, brand) => {
@@ -21,33 +21,33 @@ module.exports = {
                         img: brand.img
                     }
                 }).then(data => {
-                    console.log('//////////////////////////////////////////');
-                    console.log(data)
-                    console.log('//////////////////////////////////////////');
-                    resolve(data);
-                })
-        })
+                console.log('//////////////////////////////////////////');
+                console.log(data);
+                console.log('//////////////////////////////////////////');
+                resolve(data);
+            }); 
+        });
     },
 
     getBrandDetails: (brandId)=>{
         return new Promise(async(resolve,reject)=>{
-            let brand = await db.get().collection(collection.BRAND_COLLECTION).findOne({_id: objectId(brandId)})
-            resolve(brand)
-        })
+            let brand = await db.get().collection(collection.BRAND_COLLECTION).findOne({_id: objectId(brandId)});
+            resolve(brand);
+        });
     },
 
     deleteBrand: (brandId)=>{
         return new Promise(async(resolve,reject)=>{
             let brand = await db.get().collection(collection.BRAND_COLLECTION).deleteOne({_id: objectId(brandId)});
-            resolve(brand)
-        })
+            resolve(brand);
+        });
     },
 
     getAllBrandDetails: ()=>{
         return new Promise(async(resolve,reject)=>{
             let brand= await db.get().collection(collection.BRAND_COLLECTION).find().toArray();
-            resolve(brand)
-        })
+            resolve(brand);
+        });
     },
 
-}
+};

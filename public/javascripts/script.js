@@ -82,49 +82,99 @@ function changeQuantity(cartId, productId, userId, count){
     })
 }
 
-function addToWishList(productId){
-$.ajax({
-    url: '/add-to-wish-list/'+productId,
-    method: 'get',
-    success: (response)=>{
-        if(response.status){
-            let count = $('#wish-list-count').html();
-            count = parseInt(count)+1;
-            $('#wish-list-count').html(count)
-                // location.reload();
-            
-            document.getElementById('addHeartIcon'+productId).innerHTML = `<i 
-                class="bi bi-heart-fill text-danger" style="cursor: pointer;"
-                title="Add to wishlist"></i>`
-            // document.getElementById('heartIconWhite'+productId).style.display = "none"
-                
-        }
-    }
-})
 
-}
-
-function removeWishList(productId){
+function addRemoveWishList(productId, user){
     console.log(productId)
-    $.ajax({
-        url: '/remove-wishlist-item/'+ productId,
-        method: 'get',
-        success: (response)=>{
-            console.log(response)
-            if(response.status){
+    if(user){
+        $.ajax({
+            url: '/add-remove-wish-list/'+productId,
+            method: 'get',
+            success: (response)=>{
+                console.log(response.add)
+                console.log(response.remove)
                 let count = $('#wish-list-count').html();
-                count = parseInt(count)-1;
-                $('#wish-list-count').html(count);
-                // location.reload();
-                document.getElementById('wishlist'+productId).style.display = 'none'
-
-                document.getElementById('removeHeartIcon'+productId).innerHTML = `<i 
-                class="bi bi-heart" style="cursor: pointer;"
-                title="Add to wishlist"></i>`
-                // document.getElementById('heartIconRed'+productId).style.display = "none"
+                if(response){
+                    if(document.getElementById('addHeartIcon'+productId)){
+                        if(response.add){
+                            count = parseInt(count)+1;
+                            $('#wish-list-count').html(count)
+                            document.getElementById('addHeartIcon'+productId).innerHTML = `<i class="bi bi-heart-fill text-danger" ></i>`
+                        }else{
+                            count = parseInt(count)-1;
+                            $('#wish-list-count').html(count)
+                            document.getElementById('addHeartIcon'+productId).innerHTML = `<i class="bi bi-heart"></i>`
+                        }
+                    }
+                    else{
+                        if(response.remove){
+                            count = parseInt(count)-1;
+                            $('#wish-list-count').html(count)
+                            document.getElementById('removeHeartIcon'+productId).innerHTML = `<i class="bi bi-heart" ></i>`
+                        }else{
+                            count = parseInt(count)+1;
+                            $('#wish-list-count').html(count)
+                            document.getElementById('removeHeartIcon'+productId).innerHTML = `<i class="bi bi-heart-fill text-danger"></i>`
+                        }
+                    }
+    
+                }
             }
-        }
-    })
-}
+        })
+
+    }else{
+        location.href='/login'
+    }
+    
+    }
+
+// function addToWishList(productId){
+// $.ajax({
+//     url: '/add-to-wish-list/'+productId,
+//     method: 'get',
+//     success: (response)=>{
+//         if(response.status){
+//             let count = $('#wish-list-count').html();
+//             count = parseInt(count)+1;
+//             $('#wish-list-count').html(count)
+//                 // location.reload();
+            
+//             // document.getElementById('addHeartIcon'+productId).innerHTML = `<a onClick="${removeWishList(productId)}"
+//             //     style="cursor: pointer;" id="removeHeartIcon${productId}"
+//             //     title="Remove from wishlist"><i class="bi bi-heart-fill text-danger"></i></a>`
+//             document.getElementById('removeHeartIcon'+productId).style.display = "block"
+            
+//             document.getElementById('addHeartIcon'+productId).style.display = "none"
+
+                
+//         }
+//     }
+// })
+
+// }
+
+// function removeWishList(productId){
+//     console.log(productId)
+//     $.ajax({
+//         url: '/remove-wishlist-item/'+ productId,
+//         method: 'get',
+//         success: (response)=>{
+//             console.log(response)
+//             if(response.status){
+//                 let count = $('#wish-list-count').html();
+//                 count = parseInt(count)-1;
+//                 $('#wish-list-count').html(count);
+//                 // location.reload();
+                
+//                 // document.getElementById('removeHeartIcon'+productId).innerHTML = `<a onClick="${addToWishList(productId)}"
+//                 // style="cursor: pointer;" id="addHeartIcon${productId}"
+//                 // title="Add to wishlist"><i class="bi bi-heart"></i></a>`
+//                 document.getElementById('removeHeartIcon'+productId).style.backgroundColor = "white"
+//                 document.getElementById('addHeartIcon'+productId).style.backgroundColor = "white"
+
+//                 document.getElementById('wishlist'+productId).style.display = 'none'
+//             }
+//         }
+//     })
+// }
 
 

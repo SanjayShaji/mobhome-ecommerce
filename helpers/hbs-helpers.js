@@ -115,7 +115,11 @@ module.exports = {
     },
 
     wishlistHeartIcon :(productId,cartArray,options)=>{
+        console.log("wishList")
+        console.log(cartArray)
+        console.log("wishList")
         if(cartArray){
+            
             function doesAnyWishlistIdMatch(product){
                 
                 return productId.toString() == product.item.toString()
@@ -130,6 +134,23 @@ module.exports = {
         }
         
     },
+
+    // wishlistHeartIcon :(productId,cartArray,options)=>{
+    //     if(cartArray){
+    //         function doesAnyWishlistIdMatch(product){
+                
+    //             return productId.toString() == product.item.toString()
+    //         }
+    //         if(cartArray.some(doesAnyWishlistIdMatch)){
+    //             return options.fn()
+    //         }else{
+    //             return options.inverse();   
+    //         }
+    //     }else{
+    //         return options.inverse();   
+    //     }
+        
+    // },
 
     // wishlistHeartIcon:(productId,wishlistArray,options)=>{
     //     if(wishlistArray){

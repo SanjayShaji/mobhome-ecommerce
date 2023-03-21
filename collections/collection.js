@@ -12,5 +12,7 @@ module.exports = {
     COUPON_COLLECTION : 'coupon',
     DISCOUNT_COLLECTION : 'discount',
     WISHLIST_COLLECTION : 'wishlist',
-    ORDER_RETURN_COLLECTION : 'return'
+    ORDER_RETURN_COLLECTION : 'return',
+    REVIEW_COLLECTION : 'review'
+
 }

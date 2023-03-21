@@ -1,9 +1,9 @@
-var db = require('../config/connection')
-const collection = require('../collections/collection')
-const bcrypt = require('bcrypt')
-var objectId = require('mongodb').ObjectId
+var db = require('../config/connection');
+const collection = require('../collections/collection');
+const bcrypt = require('bcrypt');
+var objectId = require('mongodb').ObjectId;
 const Razorpay = require('razorpay');
-require("dotenv").config();
+require('dotenv').config();
 
 var instance = new Razorpay({
     key_id: process.env.KEY_ID,
@@ -25,53 +25,53 @@ module.exports = {
 
         return new Promise(async (resolve, reject) => {
             userData.password = await bcrypt.hash(userData.password, 10);
-            console.log(userData.password)
+            console.log(userData.password);
             db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data) => {
-                resolve(data)
-            })
-        })
+                resolve(data);
+            });
+        });
     },
 
     doLogin: (userData) => {
         return new Promise(async (resolve, reject) => {
             let response = {};
-            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email })
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
             if (user) {
                 bcrypt.compare(userData.password, user.password).then((status) => {
                     if (status) {
-                        console.log("Login success");
+                        console.log('Login success');
                         response.user = user;
                         response.status = true;
-                        console.log(response)
+                        console.log(response);
                         resolve(response);
                     } else {
-                        console.log("user is blocked");
-                        response.status = false
-                        resolve(response)
+                        console.log('user is blocked');
+                        response.status = false;
+                        resolve(response);
                     }
-                })
+                });
             } else {
                 response.status = false;
-                resolve(response)
+                resolve(response);
             }
-        })
+        });
     },
 
     doOtpLogin: (userData) => {
         return new Promise(async (resolve, reject) => {
-            let response = {}
-            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ phoneNumber: userData.phoneNumber })
+            let response = {};
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ phoneNumber: userData.phoneNumber });
             if (user) {
-                console.log("otp login successful");
+                console.log('otp login successful');
                 response.user = user;
                 response.status = true;
                 console.log(response);
                 resolve(response);
             } else {
-                console.log("otp logiin failed");
-                resolve({ status: false })
+                console.log('otp logiin failed');
+                resolve({ status: false });
             }
-        })
+        });
     },
 
     
@@ -87,40 +87,40 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
             resolve(user);
-        })
+        });
     },
 
     getAllUsers: () => {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECTION).find().toArray();
             resolve(user);
-        })
+        });
     },
 
     blockUser: (userId) => {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) },
                 { $set: { status: false } }
-            )
-            resolve(user)
-        })
+            );
+            resolve(user);
+        });
     },
 
     unblockUser: (userId) => {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) },
                 { $set: { status: true } }
-            )
-            resolve(user)
-        })
+            );
+            resolve(user);
+        });
     },
 
     userStatusChecker: () => {
         return new Promise(async (resolve, reject) => {
-            let user = await db.get().collection(collection.USER_COLLECTION).find({ status: true })
+            let user = await db.get().collection(collection.USER_COLLECTION).find({ status: true });
             resolve(user);
 
-        })
+        });
     },
 
     // getCategoryDetails: () => {
@@ -134,16 +134,40 @@ module.exports = {
     
     getUsertDetails: (userId) => {
         return new Promise(async (resolve, reject) => {
-            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) })
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) });
             resolve(user);
+        });
+    },
+
+    addWallet : (userId, walletAmount) =>{
+        return new Promise(async(resolve, reject)=>{
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) });
+            // user.wallet = parseInt(user.wallet)
+            walletAmount = parseInt(walletAmount)
+            console.log(user)
+            if(user.wallet){
+                let user = await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) },
+                { $inc: { wallet: walletAmount } }
+            );
+            user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) });
+            resolve(user)           
+            }else{
+                let user = await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) },
+                { $set: { 
+                    wallet: walletAmount 
+                }
+            }, {upsert: true});
+            user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) });
+            resolve(user)
+            }
         })
     },
-    
+
     changePassword: (userData)=>{
         return new Promise(async(resolve,reject)=>{
             try {
                 
-                let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email })
+                let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
                 if (user) {
                     bcrypt.compare(userData.oldPassword, user.password).then(async(status) => {
                         if (status) {
@@ -152,25 +176,25 @@ module.exports = {
                             let passwordUpdate = await db.get().collection(collection.USER_COLLECTION).updateOne({email: userData.email},
                                 {
                                     $set: {password : password}
-                                }) 
-                            console.log("password changed successfully");
+                                }); 
+                            console.log('password changed successfully');
                             
-                            console.log(passwordUpdate)
+                            console.log(passwordUpdate);
                             resolve(passwordUpdate);
                         } else {
-                            console.log("incorrect password");
+                            console.log('incorrect password');
                             
-                            resolve({status: false})
+                            resolve({status: false});
                         }
-                    })
+                    });
                 } else {
                     response.status = false;
-                    resolve(response)
+                    resolve(response);
                 }
             } catch (error) {
                 
             }
-        })
+        });
     },
 
     generateRazorPay: (orderId, total) => {
@@ -178,15 +202,15 @@ module.exports = {
 
             instance.orders.create({
                 amount: total*100,
-                currency: "INR",
-                receipt: "" + orderId,
+                currency: 'INR',
+                receipt: '' + orderId,
 
             }, (err, order) => {
-                if (err) throw err
-                console.log("New Order: ", order);
-                resolve(order)
-            })
-        })
+                if (err) throw err;
+                console.log('New Order: ', order);
+                resolve(order);
+            });
+        });
     },
 
     verifyPayment: (details) => {
@@ -198,18 +222,18 @@ module.exports = {
                     .update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]'])
                     .digest('hex');
     
-                    if(hash===details['payment[razorpay_signature]']){
-                        resolve()
-                    }else{
-                        reject()
-                    }
+                if(hash===details['payment[razorpay_signature]']){
+                    resolve();
+                }else{
+                    reject();
+                }
                 console.log(hash);
                 
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
             
-        })
+        });
     },
 
     changePaymentStatus: (orderId)=>{
@@ -220,12 +244,12 @@ module.exports = {
                         status: 'placed'
                     }
                 }
-                ).then(()=>{
-                    resolve();
-                })
-        })
-},
+            ).then(()=>{
+                resolve();
+            });
+        });
+    },
 
 
-}
+};
 

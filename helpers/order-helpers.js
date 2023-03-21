@@ -12,7 +12,16 @@ module.exports = {
             console.log("][][[][][]]]");
             if(!orderPendingCheck){
             console.log(order, products, total);
-            let status = order.paymentMethod === 'COD' ? 'placed' : 'pending'
+            let status = order.paymentMethod === 'COD' || 'wallet' ? 'placed' : 'pending'
+            
+            if(order.paymentMethod == 'wallet'){
+                total = parseInt(total)
+                let userWallet = await db.get().collection(collection.USER_COLLECTION).updateOne({_id: objectId(userId)}, {
+                    $inc : {wallet: -total}
+                });
+        
+            }
+
             let orderObj = {
                 // deliveryDetails: {
                 //     addressId: objectId(order.addressId),
@@ -65,6 +74,13 @@ module.exports = {
     getUserOrders: (userId) => {
         return new Promise(async (resolve, reject) => {
             let orders = await db.get().collection(collection.ORDER_COLLECTION).find({ userId: objectId(userId) }).sort({'createdAt': -1}).toArray();
+            resolve(orders)
+        })
+    },
+
+    getUserWalletOrders: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            let orders = await db.get().collection(collection.ORDER_COLLECTION).find({ userId: objectId(userId) , paymentMethod : 'wallet'}).sort({'createdAt': -1}).toArray();
             resolve(orders)
         })
     },
@@ -132,13 +148,47 @@ module.exports = {
                 },
                 {
                     $unwind: '$product'
+                },
+                ///////////////////////
+                {
+                    $lookup: {
+                        from: 'brand',
+                        localField: 'product.brand',
+                        foreignField: '_id',
+                        as: 'brandDetails'
+                    }
+                },
+                {
+                    $unwind: "$brandDetails"
+                },
+                {
+                    $lookup: {
+                        from: 'category',
+                        localField: 'product.category',
+                        foreignField: '_id',
+                        as: 'categoryDetails'
+                    }
+                },
+                {
+                    $unwind: "$categoryDetails"
+                },
+                {
+                    $addFields: {
+                        // discountOffer : {$cond : [ {$gt : [{$toInt: "$productOffer"}, {$toInt:"$categoryDetails.discount"}]}, {$toInt: "$productOffer"}, {$toInt:"$categoryDetails.discount"}] },
+                        discountOff: {$cond: { if: {$gt : ["$product.discount", "$categoryDetails.discount"]}, then: {$toInt: "$discount"}, else: {$toInt:"$categoryDetails.discount"} }},
+                    }
+                },
+                {
+                    $addFields :{
+                        discountedAmount: {$round : {$divide : [{$multiply: [{$toInt: "$product.price"}, {$toInt:"$discountOff"}]}, 100]} },
+                    }
+                },
+                {
+                    $addFields : {
+                        priceAfterDiscount: {$round: {$subtract: [{$toInt: "$product.price"}, {$toInt:"$discountedAmount"}]} }
+                    }
                 }
-                
-                // {
-                //     $project: {
-                //         item: 1, quantity: 1, product: { $arrayElemAt: ['$products', 0] }
-                //     }
-                // }
+
             ]).toArray();
             console.log("--------orderhelpers orders view========");
             console.log(orderProducts);
@@ -188,7 +238,20 @@ module.exports = {
     updateOrderStatus: (data) => {
         return new Promise(async (resolve, reject) => {
             console.log(data);
-
+            let order = await db.get().collection(collection.ORDER_COLLECTION).findOne({_id: objectId(data.orderId)})
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({_id: objectId(data.userId)})
+            
+            if(data['status'] == 'cancelled' && order.paymentMethod != 'COD'){
+            if(user.wallet){
+                await db.get().collection(collection.USER_COLLECTION).updateOne({_id: objectId(data.userId)}, {
+                    $inc: {wallet: order.totalAmount}
+            })
+            }else{
+                await db.get().collection(collection.USER_COLLECTION).updateOne({_id: objectId(data.userId)}, {
+                    $set: {wallet: order.totalAmount}
+            })
+            }
+        }
             let updateStatus = await db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(data.orderId), userId: objectId(data.userId) },
                 {
                     $set: { status: data.status }

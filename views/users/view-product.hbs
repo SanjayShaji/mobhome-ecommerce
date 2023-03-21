@@ -72,13 +72,18 @@
 
                                     <div class="ratings-container">
                                         <div class="ratings">
-                                            <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                            <div class="ratings-val" style="width: {{averageReview}}%;"></div><!-- End .ratings-val -->
                                         </div><!-- End .ratings -->
-                                        <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
+                                        <a class="ratings-text" href="#product-review-link" id="review-link">( {{reviewsCount}} )</a>
                                     </div><!-- End .rating-container -->
 
                                     <div class="product-price">
-                                        ${{product.price}}
+                                        <span style="color: black;" class=""> ₹{{product.priceAfterDiscount}}</span>
+                                        <span style=" text-decoration: line-through; font-size: 13px; color: gray;"
+                                            class="ml-2">₹{{product.price}}</span>
+                                        <span style="color: green; font-size: 15px;" class="ml-2">{{product.discountOff}}%
+                                            off</span>
+
                                     </div><!-- End .product-price -->
 
                                     <div class="product-content">
@@ -147,15 +152,16 @@
                     <div class="product-details-tab">
                         <ul class="nav nav-pills justify-content-center" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                                <a class="nav-link active" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews {{reviewsCount}}</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews (2)</a>
+                                <a class="nav-link" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
                             </li>
+
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                            <div class="tab-pane fade " id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                                 <div class="product-desc-content">
                                     <h3>Product Information</h3>
                                     <p>{{product.description}}<p>
@@ -163,16 +169,108 @@
                                     </div><!-- End .product-desc-content -->
                             </div><!-- .End .tab-pane -->
 
-                            <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
+                            <div class="tab-pane fade show active" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
                                 <div class="reviews">
-                                    <h3>Reviews (2)</h3>
+                                    <div style="text-align: center;">
+                                    <h1 >{{reviewRate}} </h1>
+                                    <div  class="ratings">
+                                        <div class="ratings-val" style="width: {{averageReview}}%;"></div><!-- End .ratings-val -->
+                                    <h3>Reviews {{reviewsCount}}</h3>
+                                    </div><!-- End .ratings -->
+                                    </div>
+                                    <div class="container mt-4">
+  <div style="margin: 40px;">
+  <h3>Rate this product</h3>
+  <form action="/add-review" method="post">
+    <fieldset class="rating" id="star-rating">
+    <input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
+    <input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
+    <input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
+    <input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
+    <input type="radio" id="star1" name="rating" value="1"><label for="star1"></label>
+  </fieldset> <br>
+  <textarea style="width: 60%;" name="review" id="review" rows="3"></textarea> <br>
+  <input hidden type="text" name="productId" value={{product._id}}>
+  <button type="submit" id="submit-rating" class="btn btn-primary">Submit</button>
+  {{!-- <p>Your rating: <span id="selected-rating"></span></p> --}}
+</form>
+  </div>
+</div>
+
+<style>
+.rating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  color: #ddd;
+  font-size: 30px;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.rating label:before {
+  content: "\f005";
+  font-family: FontAwesome;
+  display: inline-block;
+}
+
+.rating label:hover:before,
+.rating label:hover ~ label:before,
+.rating input:checked ~ label:before {
+  color: #ffac2f;
+}
+
+.rating input:checked ~ label:before {
+  content: "\f005";
+  font-family: FontAwesome;
+  display: inline-block;
+  color: #ffac2f;
+}
+
+</style>
+
+<script>
+var selectedRating = 0;
+
+$('input[name="rating"]').change(function() {
+  selectedRating = parseInt(this.value);
+  updateStars(selectedRating);
+});
+
+//function updateStars(rating) {
+//  $('#selected-rating').text(rating + ' stars');
+//  $('.rating label').each(function() {
+//    var num = parseInt($(this).next().val());
+//    if (num <= rating) {
+//      $(this).css('color', '#ffac2f');
+//    } else {
+//      $(this).css('color', '#ddd');
+//    }
+//  });
+//}
+
+//$('#submit-rating').click(function() {
+//  // Send rating to backend using AJAX or form submission
+//  alert('You rated ' + selectedRating + ' stars!');
+//});
+</script>
+
+                                    {{#each reviews}}
                                     <div class="review">
                                         <div class="row no-gutters">
                                             <div class="col-auto">
-                                                <h4><a href="#">Samanta J.</a></h4>
+                                                <h4><a href="#">{{this.user.name}}</a></h4>
                                                 <div class="ratings-container">
                                                     <div class="ratings">
-                                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                                        <div class="ratings-val" style="width: {{this.rating}}%;"></div><!-- End .ratings-val -->
                                                     </div><!-- End .ratings -->
                                                 </div><!-- End .rating-container -->
                                                 <span class="review-date">6 days ago</span>
@@ -181,7 +279,7 @@
                                                 <h4>Good, perfect size</h4>
 
                                                 <div class="review-content">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cum dolores assumenda asperiores facilis porro reprehenderit animi culpa atque blanditiis commodi perspiciatis doloremque, possimus, explicabo, autem fugit beatae quae voluptas!</p>
+                                                    <p>{{this.review}}</p>
                                                 </div><!-- End .review-content -->
 
                                                 <div class="review-action">
@@ -191,8 +289,9 @@
                                             </div><!-- End .col-auto -->
                                         </div><!-- End .row -->
                                     </div><!-- End .review -->
+                                    {{/each}}
 
-                                    <div class="review">
+                                    {{!-- <div class="review">
                                         <div class="row no-gutters">
                                             <div class="col-auto">
                                                 <h4><a href="#">John Doe</a></h4>
@@ -216,11 +315,14 @@
                                                 </div><!-- End .review-action -->
                                             </div><!-- End .col-auto -->
                                         </div><!-- End .row -->
-                                    </div><!-- End .review -->
+                                    </div><!-- End .review --> --}}
                                 </div><!-- End .reviews -->
                             </div><!-- .End .tab-pane -->
                         </div><!-- End .tab-content -->
                     </div><!-- End .product-details-tab -->
+
+
+
 
                     {{!-- <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
 
