@@ -181,6 +181,11 @@
                                     <div class="container mt-4">
   <div style="margin: 40px;">
   <h3>Rate this product</h3>
+  <p class="text-center text-danger">
+    {{#if reviewError}}
+    {{reviewError}}
+    {{/if}}
+  </p>
   <form action="/add-review" method="post">
     <fieldset class="rating" id="star-rating">
     <input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>

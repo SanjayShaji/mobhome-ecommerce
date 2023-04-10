@@ -14,9 +14,18 @@ module.exports = {
             createdAt: new Date()
         }
         return new Promise(async (resolve, reject) => {
-            let review = await db.get().collection(collection.REVIEW_COLLECTION).insertOne(data)
-            console.log(review)
-            resolve(review)
+            let order = await db.get().collection(collection.ORDER_COLLECTION).findOne({'products.item' : objectId(reviewData.productId)})
+            console.log("order-----rate");
+            console.log(order);
+            console.log("order-----rate");
+            if(order != null){
+                let review = await db.get().collection(collection.REVIEW_COLLECTION).insertOne(data)
+                console.log(review)
+                resolve({status: true})
+            }else{
+                console.log("order first and rate")
+                resolve({status: false})
+            }
         })
     },
 

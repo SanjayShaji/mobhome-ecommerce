@@ -320,12 +320,17 @@ module.exports = {
             let reviewsCount = reviews.length
             let reviewRateOutOfFive = (averageReview/100)*5
             let reviewRate = reviewRateOutOfFive.toFixed(1)
+            let reviewError = ""
+            if(req.session.reviewError){
+                reviewError = req.session.reviewError
+            }
             console.log(product);
             console.log(reviews);
             console.log(reviewsCount);
             console.log(averageReview);
             console.log(reviewRate);
-            res.render('./users/view-product', { vUser: req.session.user, product, reviews, reviewsCount, averageReview, reviewRate, user: true });
+            res.render('./users/view-product', { vUser: req.session.user, product, reviews, reviewsCount, reviewError, averageReview, reviewRate, user: true });
+            req.session.reviewError = ""
         } catch (error) {
             console.log(error);
         }
@@ -894,9 +899,13 @@ module.exports = {
 
     addReview : async(req, res)=>{
         try {
+            // let reviewError = ""
             console.log(req.body)
             let review = await reviewHelpers.addReview(req.session.user._id, req.body)
-
+            if(review.status == false){
+                req.session.reviewError = "purchase this product to rate"
+            }
+            console.log(review)
             res.redirect(`/view-product/${req.body.productId}`)
         } catch (error) {
             console.log(error);
