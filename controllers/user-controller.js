@@ -871,7 +871,7 @@ module.exports = {
     wishlist: async (req, res) => {
         try {
             let items = await wishlistHelpers.getWishListItems(req.session.user._id);
-            console.log(items);
+            console.log(items)
             res.render('users/wish-list', { user: true, vUser: req.session.user, items });
 
         } catch (error) {

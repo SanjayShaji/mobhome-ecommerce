@@ -6,6 +6,20 @@ module.exports = {
         
     },
 
+    ratingEquals: (value)=>{
+        if(value == 100){
+            return "Excellent"
+        }else if(value == 80){
+            return "Good"
+        }else if(value == 60){
+            return "Average"
+        }else if(value == 40){
+            return "Bad"
+        }else if(value == 20){
+            return "Horrible"
+        }
+    },
+
     ifEquals:(value1,value2,value3,options)=>{
 
         if(value1==value2){

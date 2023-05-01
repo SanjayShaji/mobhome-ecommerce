@@ -14,17 +14,31 @@ module.exports = {
             createdAt: new Date()
         }
         return new Promise(async (resolve, reject) => {
-            let order = await db.get().collection(collection.ORDER_COLLECTION).findOne({'products.item' : objectId(reviewData.productId)})
+            let order = await db.get().collection(collection.ORDER_COLLECTION).findOne({ 'products.item': objectId(reviewData.productId) })
             console.log("order-----rate");
             console.log(order);
             console.log("order-----rate");
-            if(order != null){
+            let reviewExist = await db.get().collection(collection.REVIEW_COLLECTION).findOne({ user: objectId(userId), product: objectId(reviewData.productId) })
+            console.log("reviewExist");
+            console.log(reviewExist);
+            console.log("reviewExist");
+            if (order != null && !reviewExist) {
                 let review = await db.get().collection(collection.REVIEW_COLLECTION).insertOne(data)
                 console.log(review)
-                resolve({status: true})
-            }else{
+                resolve({ status: true })
+            } else if (order != null && reviewExist) {
+                let existedReview = await db.get().collection(collection.REVIEW_COLLECTION).updateOne({user: objectId(userId), product: objectId(reviewData.productId)}, {
+                    $set: {
+                        review: reviewData.review,
+                        rating: reviewData.rating,
+                        createdAt: new Date()
+                    }
+                })
+                console.log(existedReview);
+                resolve({ status: true })
+            } else {
                 console.log("order first and rate")
-                resolve({status: false})
+                resolve({ status: false })
             }
         })
     },
@@ -67,7 +81,7 @@ module.exports = {
             let count = 0;
             let review = await db.get().collection(collection.REVIEW_COLLECTION).find({ product: objectId(productId) }).toArray();
             console.log(review);
-            if(review){
+            if (review) {
                 count = review.length
             }
             let average = 0
@@ -82,19 +96,19 @@ module.exports = {
             ]).toArray();
             // console.log(reviewTotal);
             let total = 0
-            if(reviewTotal.length != 0){
+            if (reviewTotal.length != 0) {
                 total = reviewTotal[0].total
-                average = Math.round((total/(count*100))*100)
+                average = Math.round((total / (count * 100)) * 100)
             }
 
-            let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id: objectId(productId)});
-            
-            if(product.reviewsRating != average || product.reviewsCount != count){
-                await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id: objectId(productId)}, {
-                    $set: {reviewsRating : average, reviewsCount: count}
+            let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(productId) });
+
+            if (product.reviewsRating != average || product.reviewsCount != count) {
+                await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: objectId(productId) }, {
+                    $set: { reviewsRating: average, reviewsCount: count }
                 });
             }
-            
+
             console.log(average);
             resolve(average);
         });

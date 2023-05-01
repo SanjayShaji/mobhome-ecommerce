@@ -1,254 +1,286 @@
-
-    
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/plugins/nouislider/nouislider.css"> 
-
-    
-    <div class="page-wrapper">
-
-        <main class="main">
-            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-                <div class="container d-flex align-items-center">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Products</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Default</li>
-                    </ol>
-
-                    <nav class="product-pager ml-auto" aria-label="Product">
-                        <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
-                            <i class="icon-angle-left"></i>
-                            <span>Prev</span>
-                        </a>
-
-                        <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
-                            <span>Next</span>
-                            <i class="icon-angle-right"></i>
-                        </a>
-                    </nav><!-- End .pager-nav -->
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/plugins/nouislider/nouislider.css">
 
 
-            <div class="page-content">
-                <div class="container">
-                    <div class="product-details-top">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="product-gallery product-gallery-vertical">
-                                    <div class="row">
-                                        <figure class="product-main-image">
-                                            <img id="product-zoom" src="/images/product-images/{{product.img.[1]}}" data-zoom-image="/images/product-images/{{product.img.[1]}}" alt="product image">
+<div class="page-wrapper">
 
-                                            <a href="#" id="btn-product-gallery" class="btn-product-gallery">
-                                                <i class="icon-arrows"></i>
-                                            </a>
-                                        </figure><!-- End .product-main-image -->
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container d-flex align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Default</li>
+                </ol>
 
-                                        <div id="product-zoom-gallery" class="product-image-gallery">
-                                            {{!-- <a class="product-gallery-item" href="#" data-image="/images/product-images/{{product.img.[0]}}" data-zoom-image="/images/product-images/{{product.img.[0]}}">
-                                                <img src="/images/product-images/{{product.img.[0]}}" alt="product side">
-                                            </a> --}}
+                <nav class="product-pager ml-auto" aria-label="Product">
+                    <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
+                        <i class="icon-angle-left"></i>
+                        <span>Prev</span>
+                    </a>
 
-                                            <a class="product-gallery-item" href="#" data-image="/images/product-images/{{product.img.[1]}}" data-zoom-image="/images/product-images/{{product.img.[1]}}">
-                                                <img src="/images/product-images/{{product.img.[1]}}" alt="product cross">
-                                            </a>
+                    <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
+                        <span>Next</span>
+                        <i class="icon-angle-right"></i>
+                    </a>
+                </nav><!-- End .pager-nav -->
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
 
-                                            <a class="product-gallery-item" href="#" data-image="/images/product-images/{{product.img.[2]}}" data-zoom-image="/images/product-images/{{product.img.[2]}}">
-                                                <img src="/images/product-images/{{product.img.[2]}}" alt="product with model">
-                                            </a>
 
-                                            <a class="product-gallery-item" href="#" data-image="/images/product-images/{{product.img.[3]}}" data-zoom-image="/images/product-images/{{product.img.[3]}}">
-                                                <img src="/images/product-images/{{product.img.[3]}}" alt="product back">
-                                            </a>
-                                        </div><!-- End .product-image-gallery -->
-                                    </div><!-- End .row -->
-                                </div><!-- End .product-gallery -->
-                            </div><!-- End .col-md-6 -->
+        <div class="page-content">
+            <div class="container">
+                <div class="product-details-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="product-gallery product-gallery-vertical">
+                                <div class="row">
+                                    <figure class="product-main-image">
+                                        <img id="product-zoom" src="/images/product-images/{{product.img.[1]}}"
+                                            data-zoom-image="/images/product-images/{{product.img.[1]}}"
+                                            alt="product image">
 
-                            <div class="col-md-6">
-                                <div class="product-details">
-                                    <h1 class="product-title">{{product.name}}</h1><!-- End .product-title -->
+                                        <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                            <i class="icon-arrows"></i>
+                                        </a>
+                                    </figure><!-- End .product-main-image -->
 
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: {{averageReview}}%;"></div><!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <a class="ratings-text" href="#product-review-link" id="review-link">( {{reviewsCount}} )</a>
-                                    </div><!-- End .rating-container -->
+                                    <div id="product-zoom-gallery" class="product-image-gallery">
+                                        {{!-- <a class="product-gallery-item" href="#"
+                                            data-image="/images/product-images/{{product.img.[0]}}"
+                                            data-zoom-image="/images/product-images/{{product.img.[0]}}">
+                                            <img src="/images/product-images/{{product.img.[0]}}" alt="product side">
+                                        </a> --}}
 
-                                    <div class="product-price">
-                                        <span style="color: black;" class=""> ₹{{product.priceAfterDiscount}}</span>
-                                        <span style=" text-decoration: line-through; font-size: 13px; color: gray;"
-                                            class="ml-2">₹{{product.price}}</span>
-                                        <span style="color: green; font-size: 15px;" class="ml-2">{{product.discountOff}}%
-                                            off</span>
+                                        <a class="product-gallery-item" href="#"
+                                            data-image="/images/product-images/{{product.img.[1]}}"
+                                            data-zoom-image="/images/product-images/{{product.img.[1]}}">
+                                            <img src="/images/product-images/{{product.img.[1]}}" alt="product cross">
+                                        </a>
 
-                                    </div><!-- End .product-price -->
+                                        <a class="product-gallery-item" href="#"
+                                            data-image="/images/product-images/{{product.img.[2]}}"
+                                            data-zoom-image="/images/product-images/{{product.img.[2]}}">
+                                            <img src="/images/product-images/{{product.img.[2]}}"
+                                                alt="product with model">
+                                        </a>
 
-                                    <div class="product-content">
-                                        <p>{{product.description}}</p>
-                                    </div><!-- End .product-content -->
+                                        <a class="product-gallery-item" href="#"
+                                            data-image="/images/product-images/{{product.img.[3]}}"
+                                            data-zoom-image="/images/product-images/{{product.img.[3]}}">
+                                            <img src="/images/product-images/{{product.img.[3]}}" alt="product back">
+                                        </a>
+                                    </div><!-- End .product-image-gallery -->
+                                </div><!-- End .row -->
+                            </div><!-- End .product-gallery -->
+                        </div><!-- End .col-md-6 -->
 
-                                    <div class="details-filter-row details-row-size">
-                                        <label>Color:</label>
+                        <div class="col-md-6">
+                            <div class="product-details">
+                                <h1 class="product-title">{{product.name}}</h1><!-- End .product-title -->
 
-                                        <div class="product-nav product-nav-thumbs">
-                                            <a href="#" class="bg-danger">
-                                                {{!-- <img src="/assets/images/products/single/1-thumb.jpg" alt="product desc"> --}}
-                                            </a>
-                                            <a class="bg-black" href="#">
-                                                {{!-- <img src="/assets/images/products/single/2-thumb.jpg" alt="product desc"> --}}
-                                            </a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .details-filter-row -->
-
-                                    {{!-- <div class="details-filter-row details-row-size">
-                                        <label for="size">Size:</label>
-                                        <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-                                                <option value="#" selected="selected">Select a size</option>
-                                                <option value="s">Small</option>
-                                                <option value="m">Medium</option>
-                                                <option value="l">Large</option>
-                                                <option value="xl">Extra Large</option>
-                                            </select>
-                                        </div><!-- End .select-custom -->
-
-                                        <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
-                                    </div><!-- End .details-filter-row --> --}}
-
-                        
-
-                                    <div class="product-details-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-
-                                        <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                            {{!-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a> --}}
-                                        </div><!-- End .details-action-wrapper -->
-                                    </div><!-- End .product-details-action -->
-
-                                    <div class="product-details-footer">
-                                        <div class="product-cat">
-                                            <span>Category:</span>
-                                            <a href="#">{{product.category}}</a>
-
-                                        </div><!-- End .product-cat -->
-
-                                        <div class="social-icons social-icons-sm">
-                                            <span class="social-label">Share:</span>
-                                            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                            <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                            <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
-                                        </div>
-                                    </div><!-- End .product-details-footer -->
-                                </div><!-- End .product-details -->
-                            </div><!-- End .col-md-6 -->
-                        </div><!-- End .row -->
-                    </div><!-- End .product-details-top -->
-
-                    <div class="product-details-tab">
-                        <ul class="nav nav-pills justify-content-center" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews {{reviewsCount}}</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
-                            </li>
-
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane fade " id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
-                                <div class="product-desc-content">
-                                    <h3>Product Information</h3>
-                                    <p>{{product.description}}<p>
-
-                                    </div><!-- End .product-desc-content -->
-                            </div><!-- .End .tab-pane -->
-
-                            <div class="tab-pane fade show active" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
-                                <div class="reviews">
-                                    <div style="text-align: center;">
-                                    <h1 >{{reviewRate}} </h1>
-                                    <div  class="ratings">
-                                        <div class="ratings-val" style="width: {{averageReview}}%;"></div><!-- End .ratings-val -->
-                                    <h3>Reviews {{reviewsCount}}</h3>
+                                <div class="ratings-container">
+                                    <div class="ratings">
+                                        <div class="ratings-val" style="width: {{averageReview}}%;"></div>
+                                        <!-- End .ratings-val -->
                                     </div><!-- End .ratings -->
+                                    <a class="ratings-text" href="#product-review-link" id="review-link">(
+                                        {{reviewsCount}} )</a>
+                                </div><!-- End .rating-container -->
+
+                                <div class="product-price">
+                                    <span style="color: black;" class=""> ₹{{product.priceAfterDiscount}}</span>
+                                    <span style=" text-decoration: line-through; font-size: 13px; color: gray;"
+                                        class="ml-2">₹{{product.price}}</span>
+                                    <span style="color: green; font-size: 15px;" class="ml-2">{{product.discountOff}}%
+                                        off</span>
+
+                                </div><!-- End .product-price -->
+
+                                <div class="product-content">
+                                    <p>{{product.description}}</p>
+                                </div><!-- End .product-content -->
+
+                                <div class="details-filter-row details-row-size">
+                                    <label>Color:</label>
+
+                                    <div class="product-nav product-nav-thumbs">
+                                        <a href="#" class="bg-danger">
+                                            {{!-- <img src="/assets/images/products/single/1-thumb.jpg"
+                                                alt="product desc"> --}}
+                                        </a>
+                                        <a class="bg-black" href="#">
+                                            {{!-- <img src="/assets/images/products/single/2-thumb.jpg"
+                                                alt="product desc"> --}}
+                                        </a>
+                                    </div><!-- End .product-nav -->
+                                </div><!-- End .details-filter-row -->
+
+                                {{!-- <div class="details-filter-row details-row-size">
+                                    <label for="size">Size:</label>
+                                    <div class="select-custom">
+                                        <select name="size" id="size" class="form-control">
+                                            <option value="#" selected="selected">Select a size</option>
+                                            <option value="s">Small</option>
+                                            <option value="m">Medium</option>
+                                            <option value="l">Large</option>
+                                            <option value="xl">Extra Large</option>
+                                        </select>
+                                    </div><!-- End .select-custom -->
+
+                                    <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
+                                </div><!-- End .details-filter-row --> --}}
+
+
+
+                                <div class="product-details-action">
+                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+
+                                    <div class="details-action-wrapper">
+                                        <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
+                                                Wishlist</span></a>
+                                        {{!-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
+                                                Compare</span></a> --}}
+                                    </div><!-- End .details-action-wrapper -->
+                                </div><!-- End .product-details-action -->
+
+                                <div class="product-details-footer">
+                                    <div class="product-cat">
+                                        <span>Category:</span>
+                                        <a href="#">{{product.category}}</a>
+
+                                    </div><!-- End .product-cat -->
+
+                                    <div class="social-icons social-icons-sm">
+                                        <span class="social-label">Share:</span>
+                                        <a href="#" class="social-icon" title="Facebook" target="_blank"><i
+                                                class="icon-facebook-f"></i></a>
+                                        <a href="#" class="social-icon" title="Twitter" target="_blank"><i
+                                                class="icon-twitter"></i></a>
+                                        <a href="#" class="social-icon" title="Instagram" target="_blank"><i
+                                                class="icon-instagram"></i></a>
+                                        <a href="#" class="social-icon" title="Pinterest" target="_blank"><i
+                                                class="icon-pinterest"></i></a>
                                     </div>
-                                    <div class="container mt-4">
-  <div style="margin: 40px;">
-  <h3>Rate this product</h3>
-  <p class="text-center text-danger">
-    {{#if reviewError}}
-    {{reviewError}}
-    {{/if}}
-  </p>
-  <form action="/add-review" method="post">
-    <fieldset class="rating" id="star-rating">
-    <input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
-    <input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
-    <input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
-    <input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
-    <input type="radio" id="star1" name="rating" value="1"><label for="star1"></label>
-  </fieldset> <br>
-  <textarea style="width: 60%;" name="review" id="review" rows="3"></textarea> <br>
-  <input hidden type="text" name="productId" value={{product._id}}>
-  <button type="submit" id="submit-rating" class="btn btn-primary">Submit</button>
-  {{!-- <p>Your rating: <span id="selected-rating"></span></p> --}}
-</form>
-  </div>
-</div>
+                                </div><!-- End .product-details-footer -->
+                            </div><!-- End .product-details -->
+                        </div><!-- End .col-md-6 -->
+                    </div><!-- End .row -->
+                </div><!-- End .product-details-top -->
 
-<style>
-.rating {
-  display: inline-flex;
-  flex-direction: row-reverse;
-  justify-content: flex-start;
-  align-items: center;
-}
+                <div class="product-details-tab">
+                    <ul class="nav nav-pills justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="product-review-link" data-toggle="tab"
+                                href="#product-review-tab" role="tab" aria-controls="product-review-tab"
+                                aria-selected="false">Reviews {{reviewsCount}}</a>
+                        </li>
 
-.rating input {
-  display: none;
-}
+                        <li class="nav-item">
+                            <a class="nav-link" id="product-desc-link" data-toggle="tab" href="#product-desc-tab"
+                                role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                        </li>
 
-.rating label {
-  color: #ddd;
-  font-size: 30px;
-  padding: 0 5px;
-  cursor: pointer;
-}
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade " id="product-desc-tab" role="tabpanel"
+                            aria-labelledby="product-desc-link">
+                            <div class="product-desc-content">
+                                <h3>Product Information</h3>
+                                <p>{{product.description}}
+                                <p>
 
-.rating label:before {
-  content: "\f005";
-  font-family: FontAwesome;
-  display: inline-block;
-}
+                            </div><!-- End .product-desc-content -->
+                        </div><!-- .End .tab-pane -->
 
-.rating label:hover:before,
-.rating label:hover ~ label:before,
-.rating input:checked ~ label:before {
-  color: #ffac2f;
-}
+                        <div class="tab-pane fade show active" id="product-review-tab" role="tabpanel"
+                            aria-labelledby="product-review-link">
+                            <div class="reviews">
+                                <div style="text-align: center;">
+                                    <h1>{{reviewRate}} </h1>
+                                    <div class="ratings">
+                                        <div class="ratings-val" style="width: {{averageReview}}%;"></div>
+                                        <!-- End .ratings-val -->
+                                        <h3>Reviews {{reviewsCount}}</h3>
+                                    </div><!-- End .ratings -->
+                                </div>
+                                <div class="container mt-4">
+                                    <div style="margin: 40px;">
+                                        <h3>Rate this product</h3>
+                                        <p class="text-center text-danger">
+                                            {{#if reviewError}}
+                                            {{reviewError}}
+                                            {{/if}}
+                                        </p>
+                                        <form action="/add-review" method="post">
+                                            <fieldset class="rating" id="star-rating">
+                                                <input type="radio" id="star5" name="rating" value="5"><label
+                                                    for="star5"></label>
+                                                <input type="radio" id="star4" name="rating" value="4"><label
+                                                    for="star4"></label>
+                                                <input type="radio" id="star3" name="rating" value="3"><label
+                                                    for="star3"></label>
+                                                <input type="radio" id="star2" name="rating" value="2"><label
+                                                    for="star2"></label>
+                                                <input type="radio" id="star1" name="rating" value="1"><label
+                                                    for="star1"></label>
+                                            </fieldset> <br>
+                                            <textarea style="width: 60%;" name="review" id="review" rows="3"></textarea>
+                                            <br>
+                                            <input hidden type="text" name="productId" value={{product._id}}>
+                                            <button type="submit" id="submit-rating"
+                                                class="btn btn-primary">Submit</button>
+                                            {{!-- <p>Your rating: <span id="selected-rating"></span></p> --}}
+                                        </form>
+                                    </div>
+                                </div>
 
-.rating input:checked ~ label:before {
-  content: "\f005";
-  font-family: FontAwesome;
-  display: inline-block;
-  color: #ffac2f;
-}
+                                <style>
+                                    .rating {
+                                        display: inline-flex;
+                                        flex-direction: row-reverse;
+                                        justify-content: flex-start;
+                                        align-items: center;
+                                    }
 
-</style>
+                                    .rating input {
+                                        display: none;
+                                    }
 
-<script>
-var selectedRating = 0;
+                                    .rating label {
+                                        color: #ddd;
+                                        font-size: 30px;
+                                        padding: 0 5px;
+                                        cursor: pointer;
+                                    }
 
-$('input[name="rating"]').change(function() {
-  selectedRating = parseInt(this.value);
-  updateStars(selectedRating);
-});
+                                    .rating label:before {
+                                        content: "\f005";
+                                        font-family: FontAwesome;
+                                        display: inline-block;
+                                    }
+
+                                    .rating label:hover:before,
+                                    .rating label:hover~label:before,
+                                    .rating input:checked~label:before {
+                                        color: #ffac2f;
+                                    }
+
+                                    .rating input:checked~label:before {
+                                        content: "\f005";
+                                        font-family: FontAwesome;
+                                        display: inline-block;
+                                        color: #ffac2f;
+                                    }
+                                </style>
+
+                                <script>
+                                    var selectedRating = 0;
+
+                                    $('input[name="rating"]').change(function () {
+                                        selectedRating = parseInt(this.value);
+                                        updateStars(selectedRating);
+                                    });
 
 //function updateStars(rating) {
 //  $('#selected-rating').text(rating + ' stars');
@@ -266,73 +298,79 @@ $('input[name="rating"]').change(function() {
 //  // Send rating to backend using AJAX or form submission
 //  alert('You rated ' + selectedRating + ' stars!');
 //});
-</script>
+                                </script>
 
-                                    {{#each reviews}}
-                                    <div class="review">
-                                        <div class="row no-gutters">
-                                            <div class="col-auto">
-                                                <h4><a href="#">{{this.user.name}}</a></h4>
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: {{this.rating}}%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                </div><!-- End .rating-container -->
-                                                <span class="review-date">6 days ago</span>
-                                            </div><!-- End .col -->
-                                            <div class="col">
-                                                <h4>Good, perfect size</h4>
+                                {{#each reviews}}
+                                <div class="review">
+                                    <div class="row no-gutters">
+                                        <div class="col-auto">
+                                            <h4><a href="#">{{this.user.name}}</a></h4>
+                                            <div class="ratings-container">
+                                                <div class="ratings">
+                                                    <div class="ratings-val" style="width: {{this.rating}}%;"></div>
+                                                    <!-- End .ratings-val -->
+                                                </div><!-- End .ratings -->
+                                            </div><!-- End .rating-container -->
+                                            <span class="review-date">6 days ago</span>
+                                        </div><!-- End .col -->
+                                        <div class="col">
+                                            {{#ratingEquals this.rating}}
+                                            {{/ratingEquals}}
+                                            
+                                            <div class="review-content">
+                                                <p>{{this.review}}</p>
+                                            </div><!-- End .review-content -->
 
-                                                <div class="review-content">
-                                                    <p>{{this.review}}</p>
-                                                </div><!-- End .review-content -->
+                                            <div class="review-action">
+                                                <a href="#"><i class="icon-thumbs-up"></i>Helpful (0)</a>
+                                                <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
+                                            </div><!-- End .review-action -->
+                                        </div><!-- End .col-auto -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .review -->
+                                {{/each}}
 
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div><!-- End .review-action -->
-                                            </div><!-- End .col-auto -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .review -->
-                                    {{/each}}
+                                {{!-- <div class="review">
+                                    <div class="row no-gutters">
+                                        <div class="col-auto">
+                                            <h4><a href="#">John Doe</a></h4>
+                                            <div class="ratings-container">
+                                                <div class="ratings">
+                                                    <div class="ratings-val" style="width: 100%;"></div>
+                                                    <!-- End .ratings-val -->
+                                                </div><!-- End .ratings -->
+                                            </div><!-- End .rating-container -->
+                                            <span class="review-date">5 days ago</span>
+                                        </div><!-- End .col -->
+                                        <div class="col">
+                                            <h4>Very good</h4>
 
-                                    {{!-- <div class="review">
-                                        <div class="row no-gutters">
-                                            <div class="col-auto">
-                                                <h4><a href="#">John Doe</a></h4>
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                </div><!-- End .rating-container -->
-                                                <span class="review-date">5 days ago</span>
-                                            </div><!-- End .col -->
-                                            <div class="col">
-                                                <h4>Very good</h4>
+                                            <div class="review-content">
+                                                <p>Sed, molestias, tempore? Ex dolor esse iure hic veniam laborum
+                                                    blanditiis laudantium iste amet. Cum non voluptate eos enim, ab
+                                                    cumque nam, modi, quas iure illum repellendus, blanditiis
+                                                    perspiciatis beatae!</p>
+                                            </div><!-- End .review-content -->
 
-                                                <div class="review-content">
-                                                    <p>Sed, molestias, tempore? Ex dolor esse iure hic veniam laborum blanditiis laudantium iste amet. Cum non voluptate eos enim, ab cumque nam, modi, quas iure illum repellendus, blanditiis perspiciatis beatae!</p>
-                                                </div><!-- End .review-content -->
-
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (0)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div><!-- End .review-action -->
-                                            </div><!-- End .col-auto -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .review --> --}}
-                                </div><!-- End .reviews -->
-                            </div><!-- .End .tab-pane -->
-                        </div><!-- End .tab-content -->
-                    </div><!-- End .product-details-tab -->
-
-
+                                            <div class="review-action">
+                                                <a href="#"><i class="icon-thumbs-up"></i>Helpful (0)</a>
+                                                <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
+                                            </div><!-- End .review-action -->
+                                        </div><!-- End .col-auto -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .review --> --}}
+                            </div><!-- End .reviews -->
+                        </div><!-- .End .tab-pane -->
+                    </div><!-- End .tab-content -->
+                </div><!-- End .product-details-tab -->
 
 
-                    {{!-- <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
 
-                    <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                        data-owl-options='{
+
+                {{!-- <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
+
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                    data-owl-options='{
                             "nav": false, 
                             "dots": true,
                             "margin": 20,
@@ -357,99 +395,109 @@ $('input[name="rating"]').change(function() {
                                 }
                             }
                         }'>
-                        
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <span class="product-label label-new">New</span>
-                                <a href="product.html">
-                                    <img src="/assets/images/products/product-4.jpg" alt="Product image" class="product-image">
+
+                    <div class="product product-7 text-center">
+                        <figure class="product-media">
+                            <span class="product-label label-new">New</span>
+                            <a href="product.html">
+                                <img src="/assets/images/products/product-4.jpg" alt="Product image"
+                                    class="product-image">
+                            </a>
+
+                            <div class="product-action-vertical">
+                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to
+                                        wishlist</span></a>
+                                <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
+                                    title="Quick view"><span>Quick view</span></a>
+                                <a href="#" class="btn-product-icon btn-compare"
+                                    title="Compare"><span>Compare</span></a>
+                            </div><!-- End .product-action-vertical -->
+
+                            <div class="product-action">
+                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                            </div><!-- End .product-action -->
+                        </figure><!-- End .product-media -->
+
+                        <div class="product-body">
+                            <div class="product-cat">
+                                <a href="#">Women</a>
+                            </div><!-- End .product-cat -->
+                            <h3 class="product-title"><a href="product.html">Brown paperbag waist <br>pencil skirt</a>
+                            </h3><!-- End .product-title -->
+                            <div class="product-price">
+                                $60.00
+                            </div><!-- End .product-price -->
+                            <div class="ratings-container">
+                                <div class="ratings">
+                                    <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
+                                </div><!-- End .ratings -->
+                                <span class="ratings-text">( 2 Reviews )</span>
+                            </div><!-- End .rating-container -->
+
+                            <div class="product-nav product-nav-thumbs">
+                                <a href="#" class="active">
+                                    <img src="/assets/images/products/product-4-thumb.jpg" alt="product desc">
+                                </a>
+                                <a href="#">
+                                    <img src="/assets/images/products/product-4-2-thumb.jpg" alt="product desc">
                                 </a>
 
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
-                                </div><!-- End .product-action-vertical -->
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Women</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Brown paperbag waist <br>pencil skirt</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    $60.00
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 2 Reviews )</span>
-                                </div><!-- End .rating-container -->
-
-                                <div class="product-nav product-nav-thumbs">
-                                    <a href="#" class="active">
-                                        <img src="/assets/images/products/product-4-thumb.jpg" alt="product desc">
-                                    </a>
-                                    <a href="#">
-                                        <img src="/assets/images/products/product-4-2-thumb.jpg" alt="product desc">
-                                    </a>
-
-                                    <a href="#">
-                                        <img src="/assets/images/products/product-4-3-thumb.jpg" alt="product desc">
-                                    </a>
-                                </div><!-- End .product-nav -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product --> --}}
-
-{{!-- /////////////////////////////////////////////////////////////////////////////////         --}}
-                        
-                        {{!-- <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <span class="product-label label-out">Out of Stock</span>
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-6.jpg" alt="Product image" class="product-image">
+                                <a href="#">
+                                    <img src="/assets/images/products/product-4-3-thumb.jpg" alt="product desc">
                                 </a>
+                            </div><!-- End .product-nav -->
+                        </div><!-- End .product-body -->
+                    </div><!-- End .product --> --}}
 
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
-                                </div><!-- End .product-action-vertical -->
+                    {{!-- ///////////////////////////////////////////////////////////////////////////////// --}}
 
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
+                    {{!-- <div class="product product-7 text-center">
+                        <figure class="product-media">
+                            <span class="product-label label-out">Out of Stock</span>
+                            <a href="product.html">
+                                <img src="assets/images/products/product-6.jpg" alt="Product image"
+                                    class="product-image">
+                            </a>
 
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Jackets</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Khaki utility boiler jumpsuit</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    <span class="out-price">$120.00</span>
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 6 Reviews )</span>
-                                </div><!-- End .rating-container -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product --> --}}
+                            <div class="product-action-vertical">
+                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to
+                                        wishlist</span></a>
+                                <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
+                                    title="Quick view"><span>Quick view</span></a>
+                                <a href="#" class="btn-product-icon btn-compare"
+                                    title="Compare"><span>Compare</span></a>
+                            </div><!-- End .product-action-vertical -->
+
+                            <div class="product-action">
+                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                            </div><!-- End .product-action -->
+                        </figure><!-- End .product-media -->
+
+                        <div class="product-body">
+                            <div class="product-cat">
+                                <a href="#">Jackets</a>
+                            </div><!-- End .product-cat -->
+                            <h3 class="product-title"><a href="product.html">Khaki utility boiler jumpsuit</a></h3>
+                            <!-- End .product-title -->
+                            <div class="product-price">
+                                <span class="out-price">$120.00</span>
+                            </div><!-- End .product-price -->
+                            <div class="ratings-container">
+                                <div class="ratings">
+                                    <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                </div><!-- End .ratings -->
+                                <span class="ratings-text">( 6 Reviews )</span>
+                            </div><!-- End .rating-container -->
+                        </div><!-- End .product-body -->
+                    </div><!-- End .product --> --}}
 
 
-                    </div><!-- End .owl-carousel -->
-                </div><!-- End .container -->
-            </div><!-- End .page-content -->
-        </main><!-- End .main -->
+                </div><!-- End .owl-carousel -->
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
 
-    
+
     <!-- Mobile Menu -->
     <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
 
@@ -459,10 +507,11 @@ $('input[name="rating"]').change(function() {
 
             <form action="#" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
-            
+
 
 
             <div class="social-icons">
@@ -487,23 +536,28 @@ $('input[name="rating"]').change(function() {
                         <div class="form-tab">
                             <ul class="nav nav-pills nav-fill" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin"
+                                        role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab"
+                                        aria-controls="register" aria-selected="false">Register</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="tab-content-5">
-                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                <div class="tab-pane fade show active" id="signin" role="tabpanel"
+                                    aria-labelledby="signin-tab">
                                     <form action="#">
                                         <div class="form-group">
                                             <label for="singin-email">Username or email address *</label>
-                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                            <input type="text" class="form-control" id="singin-email"
+                                                name="singin-email" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
                                             <label for="singin-password">Password *</label>
-                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                            <input type="password" class="form-control" id="singin-password"
+                                                name="singin-password" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer">
@@ -513,8 +567,10 @@ $('input[name="rating"]').change(function() {
                                             </button>
 
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="signin-remember">
+                                                <label class="custom-control-label" for="signin-remember">Remember
+                                                    Me</label>
                                             </div><!-- End .custom-checkbox -->
 
                                             <a href="#" class="forgot-link">Forgot Your Password?</a>
@@ -542,12 +598,14 @@ $('input[name="rating"]').change(function() {
                                     <form action="#">
                                         <div class="form-group">
                                             <label for="register-email">Your email address *</label>
-                                            <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                            <input type="email" class="form-control" id="register-email"
+                                                name="register-email" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
                                             <label for="register-password">Password *</label>
-                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                            <input type="password" class="form-control" id="register-password"
+                                                name="register-password" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer">
@@ -557,8 +615,10 @@ $('input[name="rating"]').change(function() {
                                             </button>
 
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                                <input type="checkbox" class="custom-control-input" id="register-policy"
+                                                    required>
+                                                <label class="custom-control-label" for="register-policy">I agree to the
+                                                    <a href="#">privacy policy</a> *</label>
                                             </div><!-- End .custom-checkbox -->
                                         </div><!-- End .form-footer -->
                                     </form>
@@ -588,5 +648,6 @@ $('input[name="rating"]').change(function() {
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
 
+    <script src="../../helpers/hbs-helpers.js"></script>
 
     <script src="/assets/js/jquery.min.js"></script>

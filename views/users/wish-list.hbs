@@ -69,10 +69,10 @@
                                                 </div><!-- End .product-price -->
                                                 <div class="ratings-container">
                                                     <div class="ratings">
-                                                        <div class="ratings-val" style="width: 20%;"></div>
+                                                        <div class="ratings-val" style="width: {{this.product.reviewsRating}}%;"></div>
                                                         <!-- End .ratings-val -->
                                                     </div><!-- End .ratings -->
-                                                    <span class="ratings-text">( 2 Reviews )</span>
+                                                    <span class="ratings-text">( {{this.product.reviewsCount}} Reviews )</span>
                                                 </div><!-- End .rating-container -->
 
                                                 {{!-- <a href="/add-to-cart/{{this.products.item}}" 
